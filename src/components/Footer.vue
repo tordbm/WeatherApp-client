@@ -1,9 +1,9 @@
 <template>
   <div class="border-top py-3 d-flex justify-content-between align-items-center">
     <section>
-      <Refs /> <a href="https://bizarre.how/" class="text-decoration-none" title="Starter by How Bizarre">How Bizarre</a>
-      <a href="https://github.com/howbizarre/starter-template-vue-3-bootstrap-5-sass-dark-theme-typescript"
-        class="text-decoration-none ms-1" title="Boilerplate for Vue 3 with Vite and Bootstrap 5 with Icons">
+      <Refs /> <a href="https://github.com/tordbm/WeatherApp-client" class="text-decoration-none" title="Wheather app by TordBM">tordbm</a>
+      <a href="https://github.com/tordbm/WeatherApp-client"
+        class="text-decoration-none ms-1" title="Wheather App in Vue3">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
           <g id="feGithub0" fill="none" fill-rule="evenodd" stroke="none" stroke-width="1">
             <g id="feGithub1" fill="currentColor">
