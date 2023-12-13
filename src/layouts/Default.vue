@@ -2,7 +2,7 @@
   <Nav />
 
   <header class="container">
-    <Heads>Starter template based on Vue 3, Bootstrap 5, SASS with Dark Theme and Typescript!</Heads>
+    <Heads>World Wide Weather without breaking a sweat!</Heads>
   </header>
 
   <main class="container flex-shrink-0 mb-4">
