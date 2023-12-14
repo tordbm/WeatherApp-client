@@ -1,5 +1,8 @@
 <template>
   <div class="row align-items-md-stretch">
+    <ErrorToast v-if="error"
+    :error-msg="err"
+    />
     <div class="col-md-6 mb-4">
       <div class="p-5 box border rounded-3">
         <label for="inputCity" class="form-label">Last fetch was for {{ lastCity }}: {{ lastFetch }}</label>
@@ -33,6 +36,7 @@
 </template>
 
 <script lang="ts">
+import ErrorToast from '@/ErrorToast.vue'
 import WeatherOverview from '@/components/WeatherOverview.vue'
 import ContentLoader from '@/shared/ContentLoader.vue'
 import dayjs from 'dayjs'
@@ -40,8 +44,9 @@ import dayjs from 'dayjs'
 export default {
   components: {
     ContentLoader,
-    WeatherOverview
-  },
+    WeatherOverview,
+    ErrorToast
+},
   data() {
     return {
       weatherData: null as any,
@@ -49,6 +54,8 @@ export default {
       city: null as string | null,
       lastFetchTime: localStorage.lastFetch as string,
       lastFetchedCity: localStorage.city as string,
+      error: false as boolean,
+      err: Error
     }
   },
   computed: {
@@ -87,7 +94,11 @@ export default {
         this.weatherData = data
         this.loading = false
        })
-      .catch(err => { console.log(err)});
+      .catch((err) => { 
+        console.error(err)
+        this.error = true
+        this.err = err.message
+      });
     }
   }
 }

@@ -78,7 +78,7 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 import { useRouter } from "vue-router";
-import { routes } from "@/router";
+import { routes } from "@/router/router";
 import { ref, type Ref } from "vue";
 
 const themeToggler: Ref<boolean> = ref(false);
@@ -97,7 +97,4 @@ const isActive = (path: string) => path === activeRoute.value;
 </script>
 
 <style lang="scss" scoped>
-ul {
-  list-style: none;
-}
 </style>
