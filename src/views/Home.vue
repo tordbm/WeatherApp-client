@@ -26,9 +26,6 @@
             :weather-data="weatherData"
             />
           </div>
-          <div v-else>
-            <p>No weather data available</p>
-          </div>
         </ContentLoader>
       </div>
     </div>
@@ -76,7 +73,7 @@ export default {
     }
   },
   methods: {
-    async fetchData():Promise<any> {
+    async fetchData(): Promise<any> {
       if (this.city === null || this.url === ''){
         return
       }
@@ -104,6 +101,5 @@ export default {
 }
 
 </script>
-
 <style lang="scss" scoped>
 </style>
