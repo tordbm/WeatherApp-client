@@ -8,7 +8,8 @@
         type="input"
         placeholder="Enter a city to see its weather!"
         id="inputCity" 
-        class="form-control" 
+        class="form-control"
+        @keyup.enter="fetchData"
         :disabled="loading">
         <button type="button" class="btn btn-outline-success mt-2" @click="fetchData">Submit</button>
       </div>
@@ -78,16 +79,15 @@ export default {
       this.lastFetchedCity = this.city
       localStorage.lastFetch = this.lastFetchTime
       fetch(this.url, {
-      "method": "GET",
-      "headers": {
-      }
+      signal: AbortSignal.timeout(30000),
+      method: "GET",
       })
       .then(resp => resp.json())
       .then(data => {
         this.weatherData = data
         this.loading = false
        })
-      .catch(err => { console.log(err) });
+      .catch(err => { console.log(err)});
     }
   }
 }

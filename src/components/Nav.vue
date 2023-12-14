@@ -80,7 +80,6 @@ import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { routes } from "@/router";
 import { ref, type Ref } from "vue";
-import Refs from "@/components/Refs.vue";
 
 const themeToggler: Ref<boolean> = ref(false);
 const docElm = document.documentElement;
