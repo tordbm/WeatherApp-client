@@ -1,8 +1,11 @@
 <template>
     <div>
-        <h3>
+        <h2>
+            {{ weatherData.address }}
+        </h2>
+        <h5>
             {{ weatherData.resolvedAddress }}
-        </h3>
+        </h5>
         {{ weatherData.description }}
     <table class="table table-hover mt-2">
     <thead>
@@ -31,6 +34,7 @@
 import { defineComponent } from 'vue';
 import dayjs from 'dayjs'
 import { wordToEmoji } from '@/shared/utils'
+
 export default defineComponent({
     props:{
         weatherData: { type: Object, required: true }
@@ -46,3 +50,8 @@ export default defineComponent({
 
 })
 </script>
+<style lang="scss" scoped>
+h2::first-letter {
+    text-transform: capitalize;
+}
+</style>
