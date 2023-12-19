@@ -1,0 +1,1 @@
+import{_ as a,F as s}from"./Footer-745cac82.js";import{d as n,b as r,o as c,c as _,e,a as o,F as m}from"./index-d8eeca02.js";const i={class:"container flex-shrink-0 mb-4"},l={class:"container footer mb-2 mt-auto"},F=n({__name:"Page",setup(p){return(f,u)=>{const t=r("router-view");return c(),_(m,null,[e(a),o("main",i,[e(t)]),o("footer",l,[e(s)])],64)}}});export{F as default};
