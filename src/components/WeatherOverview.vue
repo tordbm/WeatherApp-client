@@ -1,53 +1,41 @@
 <template>
     <div>
+        <nav class="nav justify-content-end">
+            <a v-if="mode === 'Today'" class="nav-link disabled" href="#">Today</a>
+            <a v-else class="nav-link" href="#" @click="mode = 'Today'">Today</a>
+            <a class="nav-link disabled" href="#" @click="mode = 'ThisWeek'">This Week Hourly(TODO)</a>
+            <a v-if="mode === '15Day'" class="nav-link disabled" href="#">15 Day Forecast</a>
+            <a v-else class="nav-link" href="#" @click="mode = '15Day'">15 Day Forecast</a>
+        </nav>
         <h2>
             {{ weatherData.address }}
         </h2>
         <h5>
             {{ weatherData.resolvedAddress }}
         </h5>
-        {{ weatherData.description }}
-    <table class="table table-hover mt-2">
-    <thead>
-        <tr>
-        <th scope="col">Date</th>
-        <th scope="col"></th>
-        <th scope="col">Temp.</th>
-        <th scope="col">L. Temp.</th>
-        <th scope="col">H. Temp.</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr v-for="day in weatherData.days">
-        <td>{{ formatDate(day.datetime) }}</td>
-        <td>{{ parseConditions(day.icon) }}</td>
-        <td>{{ day.temp }} º</td>
-        <td>{{ day.tempmin }} º</td>
-        <td>{{ day.tempmax }} º</td>
-        </tr>
-    </tbody>
-    </table>  
+        <WeatherDataToday v-if="mode === 'Today'"
+        :weather-data="weatherData"/>
+        <WeatherData15Day v-if="mode === '15Day'"
+        :weather-data="weatherData"/>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import dayjs from 'dayjs'
-import { wordToEmoji } from '@/shared/utils'
+import WeatherData15Day from './WeatherData15Day.vue';
+import WeatherDataToday from './WeatherDataToday.vue';
 
 export default defineComponent({
-    props:{
+    components: { WeatherData15Day, WeatherDataToday },
+    props: {
         weatherData: { type: Object, required: true }
     },
-    methods: {
-        formatDate(date: string): string {
-            return dayjs(date).format("ddd DD")
-        },
-        parseConditions(icon: string): any {
-            return wordToEmoji[icon]
+    data() {
+        return {
+            mode: 'Today' as string
         }
     }
-
+    
 })
 </script>
 <style lang="scss" scoped>
