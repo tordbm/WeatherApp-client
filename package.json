@@ -1,6 +1,6 @@
 {
   "name": "WeatherAPP-client",
-  "version": "0.1",
+  "version": "1.1.5",
   "description": "WeatherApp-client front end written in Vue.js",
   "homepage": "https://tordbm.github.io/WeatherApp-client/",
   "license": "CC-BY-4.0",
