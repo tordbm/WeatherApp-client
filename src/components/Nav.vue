@@ -76,7 +76,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { routes } from "@/router/router";
 import { ref, type Ref } from "vue";
@@ -88,12 +88,19 @@ const changeTheme = (e: Event) => {
   e.preventDefault();
 
   themeToggler.value = !themeToggler.value;
+  localStorage.theme = themeToggler.value ? "dark" : "light";
   docElm.dataset.bsTheme = themeToggler.value ? "dark" : "light";
 };
 
 const router = useRouter();
 const activeRoute = computed(() => router.currentRoute.value.path);
 const isActive = (path: string) => path === activeRoute.value;
+
+onMounted(() => {
+  const storedTheme = localStorage.theme;
+  themeToggler.value = storedTheme === "dark";
+  docElm.dataset.bsTheme = storedTheme || "light";
+});
 </script>
 
 <style lang="scss" scoped>

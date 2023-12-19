@@ -3,8 +3,7 @@
     <ErrorToast v-if="error"
     :error-msg="err"
     />
-    <div class="col-md-5">
-      <div class="p-5 box border rounded-3">
+    <div class="col-md-4">
         <label for="inputCity" class="form-label">Last fetch was for {{ lastCity }}: {{ lastFetch }}</label>
         <input 
         v-model="city" 
@@ -15,10 +14,9 @@
         @keyup.enter="fetchData"
         :disabled="loading">
         <button type="button" class="btn btn-outline-success mt-2" @click="fetchData">Submit</button>
-      </div>
     </div>
     
-    <div class="col-md-6 mb-4">
+    <div class="col-md-6 mb-4 mt-4">
         <ContentLoader :loading="loading">
           <div v-if="weatherData && !loading">
             <div class="p-5 box border rounded-3">
@@ -28,7 +26,6 @@
           </div>
           </div>
         </ContentLoader>
-      
     </div>
   </div>
 </template>
