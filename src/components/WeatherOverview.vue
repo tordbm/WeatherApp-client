@@ -2,10 +2,10 @@
     <div>
         <nav class="nav justify-content-end">
             <a v-if="mode === 'Today'" class="nav-link disabled" href="#">Today</a>
-            <a v-else class="nav-link" href="#" @click="mode = 'Today'">Today</a>
-            <a class="nav-link disabled" href="#" @click="mode = 'ThisWeek'">This Week Hourly(TODO)</a>
+            <a v-else class="nav-link" href="#" @click.prevent="mode = 'Today'">Today</a>
+            <a class="nav-link disabled" href="#" @click.prevent="mode = 'ThisWeek'">This Week Hourly(TODO)</a>
             <a v-if="mode === '15Day'" class="nav-link disabled" href="#">15 Day Forecast</a>
-            <a v-else class="nav-link" href="#" @click="mode = '15Day'">15 Day Forecast</a>
+            <a v-else class="nav-link" href="#" @click.prevent="mode = '15Day'">15 Day Forecast</a>
         </nav>
         <h2>
             {{ weatherData.address }}
