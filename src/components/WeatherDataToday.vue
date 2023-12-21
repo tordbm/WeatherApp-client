@@ -20,35 +20,34 @@
             </tr>
         </tbody>
         </table>  
-    </template>
-    <script lang="ts">
-    
-    import { defineComponent } from 'vue';
-    import { formatDate, parseConditions } from '@/shared/utils'
-    import dayjs from 'dayjs'
-    import AdvancedFormat from 'dayjs/plugin/advancedFormat'
-    
-    dayjs.extend(AdvancedFormat)
-    
-    export default defineComponent({
-        props: {
-            weatherData: { type: Object, required: true }
-        },
-        data() {
-        return {
-            todayData: this.weatherData.days[0] as any,
-        }
-        },
-        methods: {
-            filterNextHours(): Array<any> {
-                // FIX MAGIC NUMBER
-            return this.todayData.hours.filter(
-                (hour: any) => hour.datetime >= dayjs().add(this.weatherData.tzoffset-2, 'hours').format("HH:mm:ss")
-                )
-        },
-            formatDate,
-            parseConditions,
-        }
-    })
-    
-    </script>
+</template>
+<script lang="ts">
+
+import { defineComponent } from 'vue';
+import { formatDate, parseConditions } from '@/shared/utils'
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+
+dayjs.extend(utc)
+
+export default defineComponent({
+    props: {
+        weatherData: { type: Object, required: true }
+    },
+    data() {
+    return {
+        todayData: this.weatherData.days[0] as any,
+    }
+    },
+    methods: {
+        filterNextHours(): Array<any> {
+        return this.todayData.hours.filter(
+            (hour: any) => hour.datetime >= dayjs().utc().add(this.weatherData.tzoffset, 'hours').format("HH:mm:ss")
+            )
+    },
+        formatDate,
+        parseConditions,
+    }
+})
+
+</script>
