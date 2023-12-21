@@ -42,7 +42,7 @@ export default defineComponent({
     methods: {
         filterNextHours(): Array<any> {
         return this.todayData.hours.filter(
-            (hour: any) => hour.datetime >= dayjs().utc().add(this.weatherData.tzoffset, 'hours').format("HH:mm:ss")
+            (hour: any) => hour.datetime >= dayjs().utc().add(this.weatherData.tzoffset-1, 'hours').format("HH:mm:ss")
             )
     },
         formatDate,
