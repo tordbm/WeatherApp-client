@@ -1,22 +1,13 @@
 <template>
     {{ todayData.description }}
-        <table class="table table-hover mt-2">
-        <thead>
-            <tr>
-            <th scope="col">Hour</th>
-            <th scope="col"></th>
-            <th scope="col">Temp.</th>
-            <th scope="col">Precip.</th>
-            <th scope="col">Chance of Precip.</th>
-            </tr>
-        </thead>
+        <table class="table table-light table-hover mt-2">
         <tbody>
             <tr v-for="hour in filterNextHours()">
-            <td>{{ hour.datetime .slice(0, 5)}}</td>
+            <td>{{ hour.datetime.slice(0, 5)}}</td>
             <td>{{ parseConditions(hour.icon) }}</td>
             <td>{{ hour.temp }} º</td>
             <td>{{ hour.precip }} mm</td>
-            <td>{{ hour.precipprob }} %</td>
+            <td>{{ Math.round(hour.windspeed / 3.6) }} m/s</td>
             </tr>
         </tbody>
         </table>  
@@ -24,7 +15,7 @@
 <script lang="ts">
 
 import { defineComponent } from 'vue';
-import { formatDate, parseConditions } from '@/shared/utils'
+import { parseConditions } from '@/shared/utils'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 
@@ -41,11 +32,11 @@ export default defineComponent({
     },
     methods: {
         filterNextHours(): Array<any> {
-        return this.todayData.hours.filter(
-            (hour: any) => hour.datetime >= dayjs().utc().add(this.weatherData.tzoffset-1, 'hours').format("HH:mm:ss")
-            )
-    },
-        formatDate,
+            const currentTime = dayjs().utc().add(this.weatherData.tzoffset, 'hours').format("HH")
+            return this.todayData.hours.filter(
+                (hour: any) => hour.datetime >= currentTime
+                )
+            },
         parseConditions,
     }
 })

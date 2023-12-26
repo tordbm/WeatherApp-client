@@ -97,7 +97,7 @@ const activeRoute = computed(() => router.currentRoute.value.path);
 const isActive = (path: string) => path === activeRoute.value;
 
 onMounted(() => {
-  const storedTheme = localStorage.theme;
+  const storedTheme = localStorage.theme
   themeToggler.value = storedTheme === "dark";
   docElm.dataset.bsTheme = storedTheme || "light";
 });

@@ -10,10 +10,11 @@ export const wordToEmoji: { [key: string]: string } = {
     "cloudy": "\u{2601}",             // ☁️
     "clear-night": "\u{1F319}",       // 🌙 (Half moon with stars)
     "partly-cloudy-night": "\u{2601}", // 🌜 (Cloud with moon)
+    "fog": "\u{1F32B}",               // 🌫️ (Fog)
   };
 
 export function formatDate(date: string): string {
-    return dayjs(date).format("ddd DD");
+    return dayjs(date).format("dddd D");
 }
 
 export function parseConditions(icon: string): any {

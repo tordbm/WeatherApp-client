@@ -1,7 +1,7 @@
 <template>
   <div class="border-top py-3 d-flex justify-content-between align-items-center">
     <section>
-      <Refs /> <a href="https://github.com/tordbm/WeatherApp-client" class="text-decoration-none" title="Wheather app by TordBM">tordbm</a>
+      <a href="https://github.com/tordbm/WeatherApp-client" class="text-decoration-none" title="Wheather app by TordBM">tordbm</a>
       <a href="https://github.com/tordbm/WeatherApp-client"
         class="text-decoration-none ms-1" title="Wheather App in Vue3">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">

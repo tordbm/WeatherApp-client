@@ -3,9 +3,10 @@
         <nav class="nav justify-content-end">
             <a v-if="mode === 'Today'" class="nav-link disabled" href="#">Today</a>
             <a v-else class="nav-link" href="#" @click.prevent="mode = 'Today'">Today</a>
-            <a class="nav-link disabled" href="#" @click.prevent="mode = 'ThisWeek'">This Week Hourly(TODO)</a>
-            <a v-if="mode === '15Day'" class="nav-link disabled" href="#">15 Day Forecast</a>
-            <a v-else class="nav-link" href="#" @click.prevent="mode = '15Day'">15 Day Forecast</a>
+            <a v-if="mode === '15Day'" class="nav-link disabled" href="#">15 Day Forecast (NEW)</a>
+            <a v-else class="nav-link" href="#" @click.prevent="mode = '15Day'">15 Day Forecast (NEW)</a>
+            <a v-if="mode === '15DayOld'" class="nav-link disabled" href="#">15 Day Forecast (OLD)</a>
+            <a v-else class="nav-link" href="#" @click.prevent="mode = '15DayOld'">15 Day Forecast (OLD)</a>
         </nav>
         <h2>
             {{ weatherData.address }}
@@ -15,7 +16,9 @@
         </h5>
         <WeatherDataToday v-if="mode === 'Today'"
         :weather-data="weatherData"/>
-        <WeatherData15Day v-if="mode === '15Day'"
+        <WeatherData15DayNew v-if="mode === '15Day'"
+        :weather-data="weatherData"/>
+        <WeatherData15Day v-if="mode === '15DayOld'"
         :weather-data="weatherData"/>
     </div>
 </template>
@@ -24,9 +27,12 @@
 import { defineComponent } from 'vue';
 import WeatherData15Day from './WeatherData15Day.vue';
 import WeatherDataToday from './WeatherDataToday.vue';
+import WeatherData15DayNew from './WeatherData15DayNew.vue';
 
 export default defineComponent({
-    components: { WeatherData15Day, WeatherDataToday },
+    components: { WeatherData15Day,
+    WeatherDataToday,
+    WeatherData15DayNew },
     props: {
         weatherData: { type: Object, required: true }
     },
