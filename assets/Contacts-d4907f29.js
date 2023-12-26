@@ -1,1 +1,0 @@
-import{_ as c,o,c as e,a as s}from"./index-1ddd1f19.js";const t={},a={class:"p-5 mb-4 box rounded-3"},n=s("div",{class:"container-fluid py-5"},[s("h1",{class:"display-5 fw-bold"},"TODO"),s("p",{class:"col-md-8 fs-4"})],-1),d=[n];function _(r,l){return o(),e("div",a,d)}const f=c(t,[["render",_]]);export{f as default};
