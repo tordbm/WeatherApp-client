@@ -4,7 +4,7 @@
       <div v-for="(day, index) in weatherData.days" :key="index" class="accordion" :id="'accordionDays' + index">
         <div class="accordion-item">
           <h2 class="accordion-header" :id="'heading' + index">
-            <button class="accordion-button" type="button" :data-bs-toggle="'collapse'" :data-bs-target="'#collapse' + index" :aria-expanded="index === 0" :aria-controls="'collapse' + index">
+            <button class="accordion-button collapsed" type="button" :data-bs-toggle="'collapse'" :data-bs-target="'#collapse' + index" :aria-expanded="index === 0" :aria-controls="'collapse' + index">
              {{ formatDayInfo(day) }}
             </button>
           </h2>
@@ -55,6 +55,7 @@ export default defineComponent({
     .accordion-item {
       background-color: transparent;
       border: none;
+      border-bottom: 1px solid rgb(215, 215, 215);
 
       .accordion-header {
         background-color: transparent;
