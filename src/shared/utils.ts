@@ -1,5 +1,7 @@
 import dayjs from "dayjs";
 
+export const V_CR_KEY = "XL48RQQY7M84CDS92HV6S5TW5"
+
 export const wordToEmoji: { [key: string]: string } = {
     "snow": "\u2744",                 // ❄️ 
     "rain": "\u{1F327}",              // 🌧️
@@ -11,7 +13,7 @@ export const wordToEmoji: { [key: string]: string } = {
     "clear-night": "\u{1F319}",       // 🌙 (Half moon with stars)
     "partly-cloudy-night": "\u{2601}", // 🌜 (Cloud with moon)
     "fog": "\u{1F32B}",               // 🌫️ (Fog)
-  };
+  }
 
 export function formatDate(date: string): string {
     return dayjs(date).format("dddd D");

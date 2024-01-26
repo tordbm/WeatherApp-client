@@ -17,7 +17,7 @@ import { Toast } from "bootstrap";
 const bsToast = ref();
 
 defineProps({
-  errorMsg: Error
+  errorMsg: null, String
 });
 
 let toast;
