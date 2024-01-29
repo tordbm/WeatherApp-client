@@ -24,9 +24,9 @@ export const wordToEmoji: { [key: string]: string } = {
   }
 
 export function formatDate(date: string): string {
-    return dayjs(date).format("dddd D");
+    return dayjs(date).format("dddd D")
 }
 
 export function parseConditions(icon: string): any {
-    return wordToEmoji[icon];
+    return wordToEmoji[icon] || icon
 }
