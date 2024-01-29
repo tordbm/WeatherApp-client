@@ -42,7 +42,7 @@ import ErrorToast from '@/ErrorToast.vue'
 import WeatherOverview from '@/components/WeatherOverview.vue'
 import ContentLoader from '@/shared/ContentLoader.vue'
 import dayjs from 'dayjs'
-import { V_CR_KEY } from '@/shared/utils'
+import { reverseGeocodingUrl, visualCrossingUrl } from '@/shared/utils'
 
 export default {
   components: {
@@ -62,13 +62,6 @@ export default {
     }
   },
   computed: {
-    url(): string {
-      if (this.city !== null){
-        return "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/"
-        +this.city+"?unitGroup=metric&key="+V_CR_KEY+"&contentType=json"
-      }
-      return ''
-    },
     lastFetch(): string {
       return this.lastFetchTime
     },
@@ -80,7 +73,7 @@ export default {
     }
   },
   methods: {
-    async getLocation(){
+    getLocation(){
       this.loading = true
       const success = (position:any) => {
               const latitude  = position.coords.latitude
@@ -88,52 +81,45 @@ export default {
               this.getCityNameFromCoordinates(latitude, longitude)
               this.loading = false
           }
-
-          const error = (err:any) => {
-              this.error = true
-              this.err = err.message
-              this.loading = false
+      const error = (err:any) => {
+          this.error = true
+          this.err = err.message
+          this.loading = false
           }
-        navigator.geolocation.getCurrentPosition(success, error)
-      },
+      navigator.geolocation.getCurrentPosition(success, error)
+    },
     async getCityNameFromCoordinates(latitude: number, longitude: number) {
-      const reverseGeocodingUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&addressdetails=1`
       try {
-          const response = await fetch(reverseGeocodingUrl)
+          const response = await fetch(reverseGeocodingUrl(latitude, longitude))
           const data = await response.json()
           const city = data.address.city || data.address.town || data.address.village || data.address.hamlet
           this.city = city
-      } catch (error) {
+      } catch (error:any) {
           this.error = true
-          this.err = 'Error fetching city name from coordinates.'
+          this.err = error.message
           console.error(error)
+      } finally {
           this.loading = false
       }
     },
-    async fetchData(): Promise<any> {
-      if (this.city === null || this.url === ''){
+    async fetchData() {
+      if (this.city == null){
         return
       }
-      this.loading = true
-      this.lastFetchTime = this.timeStamp
-      localStorage.city = this.city
-      this.lastFetchedCity = this.city
-      localStorage.lastFetch = this.lastFetchTime
-      fetch(this.url, {
-      signal: AbortSignal.timeout(30000),
-      method: "GET",
-      })
-      .then(resp => resp.json())
-      .then(data => {
-        this.weatherData = data
-        this.loading = false
-       })
-      .catch((err) => { 
-        console.error(err)
-        this.error = true
-        this.err = err.message
-        this.loading = false
-      })
+      try {
+          [this.loading, this.lastFetchTime, this.lastFetchedCity] = [true, this.timeStamp, this.city]
+          localStorage.city = this.city
+          localStorage.lastFetch = this.lastFetchTime
+          const response = await fetch(visualCrossingUrl(this.city))
+          const data = await response.json()
+          this.weatherData = data
+      } catch(error:any) {
+          console.error(error)
+          this.error = true
+          this.err = error.message
+      } finally {
+          this.loading = false
+      }
     }
   }
 }

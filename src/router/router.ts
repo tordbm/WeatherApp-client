@@ -15,13 +15,6 @@ export const routes = [
       { path: "", name: "About", component: () => import("@/views/About.vue") }
     ],
   },
-  {
-    path: '/contacts',
-    component: () => import("@/layouts/Page.vue"),
-    children: [
-      { path: "", name: "Contacts", component: () => import("@/views/Contacts.vue") },
-    ],
-  },
 ];
 
 export const router = createRouter({

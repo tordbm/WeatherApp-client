@@ -2,6 +2,14 @@ import dayjs from "dayjs";
 
 export const V_CR_KEY = "XL48RQQY7M84CDS92HV6S5TW5"
 
+export function visualCrossingUrl(city: string) {
+    return `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=metric&key=${V_CR_KEY}&contentType=json`
+}
+
+export function reverseGeocodingUrl(latitude: number, longitude: number) {
+    return `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&addressdetails=1`
+}
+
 export const wordToEmoji: { [key: string]: string } = {
     "snow": "\u2744",                 // ❄️ 
     "rain": "\u{1F327}",              // 🌧️
