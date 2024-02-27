@@ -21,6 +21,7 @@ export const wordToEmoji: { [key: string]: string } = {
     "clear-night": "\u{1F319}",       // 🌙 (Half moon with stars)
     "partly-cloudy-night": "\u{2601}", // 🌜 (Cloud with moon)
     "fog": "\u{1F32B}",               // 🌫️ (Fog)
+    "wind": "\u{1F4A8}"               // 💨 (wind)
   }
 
 export function formatDate(date: string): string {
