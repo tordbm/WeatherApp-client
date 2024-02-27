@@ -3,6 +3,7 @@
     <ErrorToast v-if="error"
     :error-msg="err"
     />
+    <ContentLoader :loading="loading">
     <div class="col-md-5 mb-3">
       <div class="p-5 box border rounded-3">
         <label for="inputCity" class="form-label">Last fetch was for {{ lastCity }}: {{ lastFetch }}</label>
@@ -24,25 +25,31 @@
         <button type="button" class="btn btn-outline-primary" @click="fetchData">Submit</button>
         </div>
       </div>
+      <div v-if="weatherData && !loading" 
+            class="p-5 mt-3 box border rounded-3">
+            <WeatherChart
+            :weather-data="weatherData"
+            />
+         </div>
     </div>
     
     <div class="col-md-6 mb-4">
-        <ContentLoader :loading="loading">
           <div v-if="weatherData && !loading">
             <div class="p-5 box border rounded-3">
             <WeatherOverview
             :weather-data="weatherData"
             />
+            </div>
           </div>
-          </div>
-        </ContentLoader>
     </div>
+  </ContentLoader>
   </div>
 </template>
 
 <script lang="ts">
 import ErrorToast from '@/ErrorToast.vue'
 import WeatherOverview from '@/components/WeatherOverview.vue'
+import WeatherChart from '@/components/WeatherChart.vue'
 import ContentLoader from '@/shared/ContentLoader.vue'
 import dayjs from 'dayjs'
 import { reverseGeocodingUrl, visualCrossingUrl } from '@/shared/utils'
@@ -51,6 +58,7 @@ export default {
   components: {
     ContentLoader,
     WeatherOverview,
+    WeatherChart,
     ErrorToast
 },
   data() {
