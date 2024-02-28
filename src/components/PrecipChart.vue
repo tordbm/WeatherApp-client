@@ -3,7 +3,7 @@
 </template>
 <script lang="ts">
 
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 import { parseConditions } from '@/shared/utils'
 import {
   Chart as ChartJS,
@@ -35,14 +35,24 @@ export default defineComponent({
                 datasets: [{ 
                     label: 'Precipitation in mm',
                     data: [] as number[],
-                    fill: false,
                     backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 0.2)',
-                    tension: 0.1 }]
+                    borderColor: 'rgba(54, 162, 235, 0.2)'}]
             },
             options: {
                 responsive: true,
-                
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        suggestedMax: 10,
+                        grid: {
+                            display: true
+                        }
+                    }
+                }
             },
             todayData: this.weatherData.days[0] as any,
         }
@@ -77,5 +87,4 @@ export default defineComponent({
         parseConditions,
     }
 })
-
 </script>

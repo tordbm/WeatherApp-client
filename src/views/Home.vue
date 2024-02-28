@@ -27,7 +27,7 @@
       </div>
       <div v-if="weatherData && !loading" 
             class="p-5 mt-3 box border rounded-3">
-            <WeatherChart
+            <PrecipChart
             :weather-data="weatherData"
             />
          </div>
@@ -49,7 +49,7 @@
 <script lang="ts">
 import ErrorToast from '@/ErrorToast.vue'
 import WeatherOverview from '@/components/WeatherOverview.vue'
-import WeatherChart from '@/components/WeatherChart.vue'
+import PrecipChart from '@/components/PrecipChart.vue'
 import ContentLoader from '@/shared/ContentLoader.vue'
 import dayjs from 'dayjs'
 import { reverseGeocodingUrl, visualCrossingUrl } from '@/shared/utils'
@@ -58,8 +58,8 @@ export default {
   components: {
     ContentLoader,
     WeatherOverview,
-    WeatherChart,
-    ErrorToast
+    ErrorToast,
+    PrecipChart,
 },
   data() {
     return {
