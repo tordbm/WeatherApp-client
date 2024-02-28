@@ -4,7 +4,7 @@
     :error-msg="err"
     />
     <ContentLoader :loading="loading">
-    <div class="col-md-5 mb-3">
+    <div class="col-md-6 mb-3">
       <div class="p-5 box border rounded-3">
         <label for="inputCity" class="form-label">Last fetch was for {{ lastCity }}: {{ lastFetch }}</label>
         <div class="input-group mb-3">
@@ -26,27 +26,25 @@
         </div>
       </div>
       <div v-if="weatherData && !loading">
-        <div class="p-5 mt-3 box border rounded-3">
-            <TempChart
-            :weather-data="weatherData"
-            />
-        </div>
-        <div class="p-5 mt-3 box border rounded-3">
-            <PrecipChart
-            :weather-data="weatherData"
-            />
-        </div>
+          <div class="p-5 mt-3 box border rounded-3">
+          <WeatherOverview
+          :weather-data="weatherData"
+          />
+          </div>
       </div>
     </div>
     
-    <div class="col-md-6 mb-4">
-          <div v-if="weatherData && !loading">
-            <div class="p-5 box border rounded-3">
-            <WeatherOverview
-            :weather-data="weatherData"
-            />
-            </div>
-          </div>
+    <div v-if="weatherData && !loading" class="col-md-6 mb-4">
+      <div class="p-5 box border rounded-3">
+        <TempChart
+        :weather-data="weatherData"
+        />
+      </div>
+      <div class="p-5 mt-3 box border rounded-3">
+        <PrecipChart
+        :weather-data="weatherData"
+        />
+      </div>
     </div>
   </ContentLoader>
   </div>
