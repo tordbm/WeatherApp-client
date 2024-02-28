@@ -25,12 +25,18 @@
         <button type="button" class="btn btn-outline-primary" @click="fetchData">Submit</button>
         </div>
       </div>
-      <div v-if="weatherData && !loading" 
-            class="p-5 mt-3 box border rounded-3">
+      <div v-if="weatherData && !loading">
+        <div class="p-5 box border rounded-3">
+            <TempChart
+            :weather-data="weatherData"
+            />
+        </div>
+        <div class="p-5 mt-3 box border rounded-3">
             <PrecipChart
             :weather-data="weatherData"
             />
-         </div>
+        </div>
+      </div>
     </div>
     
     <div class="col-md-6 mb-4">
@@ -50,6 +56,7 @@
 import ErrorToast from '@/ErrorToast.vue'
 import WeatherOverview from '@/components/WeatherOverview.vue'
 import PrecipChart from '@/components/PrecipChart.vue'
+import TempChart from '@/components/TempChart.vue'
 import ContentLoader from '@/shared/ContentLoader.vue'
 import dayjs from 'dayjs'
 import { reverseGeocodingUrl, visualCrossingUrl } from '@/shared/utils'
@@ -60,6 +67,7 @@ export default {
     WeatherOverview,
     ErrorToast,
     PrecipChart,
+    TempChart,
 },
   data() {
     return {
