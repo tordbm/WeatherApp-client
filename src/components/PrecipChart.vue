@@ -4,7 +4,7 @@
 <script lang="ts">
 
 import { defineComponent } from 'vue'
-import { parseConditions } from '@/shared/utils'
+import { filterNextHours, parseConditions } from '@/shared/utils'
 import {
   Chart as ChartJS,
   Title,
@@ -15,11 +15,8 @@ import {
   LinearScale
 } from 'chart.js'
 import { Bar } from 'vue-chartjs'
-import dayjs from 'dayjs'
-import utc from 'dayjs/plugin/utc'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
-dayjs.extend(utc)
 
 export default defineComponent({
     components: {
@@ -60,14 +57,14 @@ export default defineComponent({
     computed: {
         labels(): Array<string> {
             let i: string[] = []
-            this.filterNextHours().forEach(hour => {
+            this.filterNextHours(this.todayData, this.weatherData).forEach(hour => {
                 i.push(hour.datetime.slice(0, 5))
             })
             return i
         },
         precipData(): Array<number> {
             let i: number[] = []
-            this.filterNextHours().forEach(hour => {
+            this.filterNextHours(this.todayData, this.weatherData).forEach(hour => {
                 i.push(hour.precip)
             })
             return i
@@ -78,12 +75,7 @@ export default defineComponent({
         this.data.datasets[0].data = this.precipData
     },
     methods: {
-        filterNextHours(): Array<any> {
-            const currentTime = dayjs().utc().add(this.weatherData.tzoffset, 'hours').format("HH")
-            return this.todayData.hours.filter(
-                (hour: any) => hour.datetime >= currentTime
-                )
-            },
+        filterNextHours,
         parseConditions,
     }
 })

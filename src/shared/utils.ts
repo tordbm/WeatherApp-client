@@ -1,4 +1,7 @@
-import dayjs from "dayjs";
+import dayjs from "dayjs"
+import utc from 'dayjs/plugin/utc'
+
+dayjs.extend(utc)
 
 export const V_CR_KEY = "XL48RQQY7M84CDS92HV6S5TW5"
 
@@ -31,3 +34,10 @@ export function formatDate(date: string): string {
 export function parseConditions(icon: string): any {
     return wordToEmoji[icon] || icon
 }
+
+export function filterNextHours(todayData: any, weatherData: any): Array<any> {
+    const currentTime = dayjs().utc().add(weatherData.tzoffset, 'hours').format("HH")
+    return todayData.hours.filter(
+        (hour: any) => hour.datetime >= currentTime
+        )
+    }
