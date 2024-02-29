@@ -111,6 +111,7 @@ export default {
           const data = await response.json()
           const city = data.address.city || data.address.town || data.address.village || data.address.hamlet
           this.city = city
+          this.fetchData()
       } catch (error:any) {
           this.error = true
           this.err = error.message
@@ -141,5 +142,3 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
-</style>
