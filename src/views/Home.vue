@@ -3,7 +3,6 @@
     <ErrorToast v-if="error"
     :error-msg="err"
     />
-    <ContentLoader :loading="loading">
     <div class="col-md-6 mb-3">
       <div class="p-5 box border rounded-3">
         <label for="inputCity" class="form-label">Last fetch was for {{ lastCity }}: {{ lastFetch }}</label>
@@ -33,6 +32,7 @@
           </div>
       </div>
     </div>
+    <ContentLoader :loading="loading"/>
     
     <div v-if="weatherData && !loading" class="col-md-6 mb-4">
       <div class="p-5 box border rounded-3">
@@ -46,7 +46,6 @@
         />
       </div>
     </div>
-  </ContentLoader>
   </div>
 </template>
 
@@ -96,7 +95,6 @@ export default {
               const latitude  = position.coords.latitude
               const longitude = position.coords.longitude
               this.getCityNameFromCoordinates(latitude, longitude)
-              this.loading = false
           }
       const error = (err:any) => {
           this.error = true
@@ -116,8 +114,6 @@ export default {
           this.error = true
           this.err = error.message
           console.error(error)
-      } finally {
-          this.loading = false
       }
     },
     async fetchData() {
