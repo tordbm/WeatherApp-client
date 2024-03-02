@@ -131,6 +131,7 @@ export default {
           const response = await fetch(visualCrossingUrl(this.city))
           const data = await response.json()
           this.weatherData = data
+          this.clickedAccordionIndex = 0
       } catch(error:any) {
           console.error(error)
           this.error = true
