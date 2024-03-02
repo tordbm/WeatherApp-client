@@ -17,7 +17,8 @@
         <WeatherDataToday v-if="mode === 'Today'"
         :weather-data="weatherData"/>
         <WeatherData15DayNew v-if="mode === '15Day'"
-        :weather-data="weatherData"/>
+        :weather-data="weatherData"
+        @accordion-click="handleAccordionClick"/>
         <WeatherData15Day v-if="mode === '15DayOld'"
         :weather-data="weatherData"/>
     </div>
@@ -30,9 +31,11 @@ import WeatherDataToday from './WeatherDataToday.vue';
 import WeatherData15DayNew from './WeatherData15DayNew.vue';
 
 export default defineComponent({
-    components: { WeatherData15Day,
+    components: { 
+    WeatherData15Day,
     WeatherDataToday,
-    WeatherData15DayNew },
+    WeatherData15DayNew,
+    },
     props: {
         weatherData: { type: Object, required: true }
     },
@@ -40,6 +43,11 @@ export default defineComponent({
         return {
             mode: 'Today' as string
         }
+    },
+    methods: {
+        handleAccordionClick(index: number) {
+         this.$emit('accordion-click', index);
+  }
     }
     
 })

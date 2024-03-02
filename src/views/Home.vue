@@ -28,6 +28,7 @@
           <div class="p-5 mt-3 box border rounded-3">
           <WeatherOverview
           :weather-data="weatherData"
+          @accordion-click="handleAccordionClick"
           />
           </div>
       </div>
@@ -38,11 +39,13 @@
       <div class="p-5 box border rounded-3">
         <TempChart
         :weather-data="weatherData"
+        :index="clickedAccordionIndex"
         />
       </div>
       <div class="p-5 mt-3 box border rounded-3">
         <PrecipChart
         :weather-data="weatherData"
+        :index="clickedAccordionIndex"
         />
       </div>
     </div>
@@ -75,6 +78,7 @@ export default {
       lastFetchedCity: localStorage.city as string,
       error: false as boolean,
       err: null as string | null,
+      clickedAccordionIndex: 0 as number,
     }
   },
   computed: {
@@ -133,6 +137,13 @@ export default {
           this.err = error.message
       } finally {
           this.loading = false
+      }
+    },
+    handleAccordionClick(index: number) {
+      if (typeof index === 'number') {
+        this.clickedAccordionIndex = index;
+      } else {
+        console.error("Invalid index:", index);
       }
     }
   }

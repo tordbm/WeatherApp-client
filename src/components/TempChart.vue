@@ -1,89 +1,100 @@
 <template>
-    <Line :data="data" :options="options"/>
+    <Line :data="chartData" :options="chartOptions"/>
 </template>
-<script lang="ts">
 
+<script lang="ts">
 import { defineComponent } from 'vue'
 import { filterNextHours, parseConditions } from '@/shared/utils'
 import {
- Chart as ChartJS,
- Title,
- Tooltip,
- Legend,
- LineElement,
- LinearScale,
- CategoryScale,
- PointElement
+    Chart as ChartJS,
+    Title,
+    Tooltip,
+    Legend,
+    LineElement,
+    LinearScale,
+    CategoryScale,
+    PointElement,
 } from 'chart.js'
 import { Line } from 'vue-chartjs'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
 
 export default defineComponent({
-   components: {
-       Line,
-   },
-   props: {
-       weatherData: { type: Object, required: true }
-   },
-   data() {
-       return {
-           data: {
-               labels: [] as string[],
-               datasets: [{ 
-                   label: 'Temperature in °C',
-                   data: [] as number[],
-                   backgroundColor: 'orange',
-                   borderColor: 'orange',
-                   tension: 0.4,
-                   pointRadius: 0,
-                   }]
-           },
-           options: {
-            scales: {
-                x: {
-                     grid: {
-                          display: false
-                     }
+    components: {
+        Line,
+    },
+    props: {
+        weatherData: { type: Object, required: true },
+        index: { type: Number, default: 0 }
+    },
+    computed: {
+        chartData() {
+            return {
+                labels: this.labels,
+                datasets: [{ 
+                    label: 'Temperature in °C',
+                    data: this.tempData,
+                    backgroundColor: 'orange',
+                    borderColor: 'orange',
+                    tension: 0.4,
+                    pointRadius: 0,
+                }]
+            }
+        },
+        chartOptions() {
+            return {
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        grace: '100%',
+                        grid: {
+                            display: true
+                        }
+                    }
                 },
-                y: {
-                    grace: '100%',
-                     grid: {
-                          display: true
-                     }
-                }
-            },
-               responsive: true,
-               interaction: {
+                responsive: true,
+                interaction: {
                     intersect: false,
                 }
-           },
-           todayData: this.weatherData.days[0] as any,
-       }
-   },
-   computed: {
-       labels(): Array<string> {
-           let i: string[] = []
-           this.filterNextHours(this.todayData, this.weatherData).forEach(hour => {
-               i.push(hour.datetime.slice(0, 5))
-           })
-           return i
-       },
-       tempData(): Array<number> {
-           let i: number[] = []
-           this.filterNextHours(this.todayData, this.weatherData).forEach(hour => {
-               i.push(hour.temp)
-           })
-           return i
-       }
-   },
-   created() {
-       this.data.labels = this.labels
-       this.data.datasets[0].data = this.tempData
-   },
-   methods: {
-       filterNextHours,
-       parseConditions,
-   }
+            }
+        },
+        todayData(): any {
+            return this.weatherData.days[this.index]
+        },
+        labels(): Array<string> {
+            let nextHours: string[] = []
+            if (this.index > 0) {
+                this.todayData.hours.forEach((hour:any) => {
+                    nextHours.push(hour.datetime.slice(0,5))
+                })
+                return nextHours
+            }
+            this.filterNextHours(this.todayData, this.weatherData).forEach(hour => {
+                nextHours.push(hour.datetime.slice(0, 5))
+            })
+            return nextHours
+        },
+        tempData(): Array<number> {
+            let nextTemps: number[] = []
+            if (this.index > 0) {
+                this.todayData.hours.forEach((hour:any) => {
+                    nextTemps.push(Math.round(hour.temp))
+                })
+                return nextTemps
+            }
+            this.filterNextHours(this.todayData, this.weatherData).forEach(hour => {
+                nextTemps.push(Math.round(hour.temp))
+            })
+            return nextTemps
+        }
+    },
+    methods: {
+        filterNextHours,
+        parseConditions,
+    }
 })
 </script>

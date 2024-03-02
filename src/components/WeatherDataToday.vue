@@ -5,7 +5,7 @@
             <tr v-for="hour in filterNextHours(todayData, weatherData)">
             <td>{{ hour.datetime.slice(0, 5)}}</td>
             <td>{{ parseConditions(hour.icon) }}</td>
-            <td>{{ hour.temp }} º</td>
+            <td>{{ Math.round(hour.temp) }} º</td>
             <td>{{ hour.precip }} mm</td>
             <td>{{ Math.round(hour.windspeed / 3.6) }} m/s</td>
             </tr>

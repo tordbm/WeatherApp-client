@@ -1,7 +1,9 @@
 import dayjs from "dayjs"
 import utc from 'dayjs/plugin/utc'
+import AdvancedFormat from 'dayjs/plugin/advancedFormat'
 
 dayjs.extend(utc)
+dayjs.extend(AdvancedFormat)
 
 export const V_CR_KEY = "XL48RQQY7M84CDS92HV6S5TW5"
 
@@ -28,7 +30,7 @@ export const wordToEmoji: { [key: string]: string } = {
   }
 
 export function formatDate(date: string): string {
-    return dayjs(date).format("dddd D")
+    return dayjs(date).format("dddd Do of MMMM")
 }
 
 export function parseConditions(icon: string): any {

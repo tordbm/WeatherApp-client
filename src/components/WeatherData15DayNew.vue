@@ -4,8 +4,8 @@
       <div v-for="(day, index) in weatherData.days" :key="index" class="accordion" :id="'accordionDays' + index">
         <div class="accordion-item">
           <h2 class="accordion-header" :id="'heading' + index">
-            <button class="accordion-button collapsed" type="button" :data-bs-toggle="'collapse'" :data-bs-target="'#collapse' + index" :aria-expanded="index === 0" :aria-controls="'collapse' + index">
-             {{ formatDayInfo(day) }}
+            <button @click="toggleAccordion(index)" class="accordion-button collapsed" type="button" :data-bs-toggle="'collapse'" :data-bs-target="'#collapse' + index" :aria-expanded="index === 0" :aria-controls="'collapse' + index">
+              {{ index === 0 ? 'Today' : formatDayInfo(day) }}
             </button>
           </h2>
           <div :id="'collapse' + index" class="accordion-collapse collapse" :aria-labelledby="'heading' + index" :data-bs-parent="'#accordionDays' + index">
@@ -15,7 +15,7 @@
                   <tr v-for="hour in day.hours" :key="hour.datetime">
                     <td>{{ hour.datetime.slice(0, 5) }}</td>
                     <td>{{ parseConditions(hour.icon) }}</td>
-                    <td>{{ hour.temp }} º</td>
+                    <td>{{ Math.round(hour.temp) }} º</td>
                     <td>{{ hour.precip }} mm</td>
                     <td>{{ Math.round(hour.windspeed / 3.6) }} m/s</td>
                   </tr>
@@ -38,14 +38,13 @@ export default defineComponent({
     },
     methods: {
       formatDayInfo(day: any): string {
-        const formattedDate = formatDate(day.datetime).padEnd(13, '\u00a0')
-        const conditions = parseConditions(day.icon);
-        const temperature = `${day.temp}º`;
-
-        return `${formattedDate} ${conditions} ${temperature}`;
+        return formatDate(day.datetime)
      },
-        formatDate,
-        parseConditions,
+     toggleAccordion(index: number): void {
+      this.$emit('accordion-click', index);
+    },
+     formatDate,
+     parseConditions,
     }
 })
 

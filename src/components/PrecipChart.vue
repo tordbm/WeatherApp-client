@@ -1,5 +1,5 @@
 <template>
-     <Bar :data="data" :options="options"/>
+     <Bar :data="chartData" :options="chartOptions"/>
 </template>
 <script lang="ts">
 
@@ -23,20 +23,27 @@ export default defineComponent({
         Bar,
     },
     props: {
-        weatherData: { type: Object, required: true }
+        weatherData: { type: Object, required: true },
+        index: { type: Number, default: 0 }
     },
-    data() {
-        return {
-            data: {
-                labels: [] as string[],
+    computed: {
+        chartData() {
+            return {
+                labels: this.labels,
                 datasets: [{ 
                     label: 'Precipitation in mm',
-                    data: [] as number[],
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 0.2)'}]
-            },
-            options: {
+                    data: this.precipData,
+                    backgroundColor: 'DeepSkyBlue',
+                    borderColor: 'DeepSkyBlue'
+                }]
+            }
+        },
+        chartOptions() {
+            return {
                 responsive: true,
+                interaction: {
+                    intersect: false,
+                },
                 scales: {
                     x: {
                         grid: {
@@ -44,35 +51,43 @@ export default defineComponent({
                         }
                     },
                     y: {
-                        suggestedMax: 10,
+                        suggestedMax: 5,
                         grid: {
                             display: true
                         }
                     }
                 }
-            },
-            todayData: this.weatherData.days[0] as any,
-        }
-    },
-    computed: {
+            }
+        },
+        todayData(): any {
+            return this.weatherData.days[this.index]
+        },
         labels(): Array<string> {
-            let i: string[] = []
+            let nextHours: string[] = []
+            if (this.index > 0) {
+                this.todayData.hours.forEach((hour:any) => {
+                    nextHours.push(hour.datetime.slice(0,5))
+                })
+                return nextHours
+            }
             this.filterNextHours(this.todayData, this.weatherData).forEach(hour => {
-                i.push(hour.datetime.slice(0, 5))
+                nextHours.push(hour.datetime.slice(0, 5))
             })
-            return i
+            return nextHours
         },
         precipData(): Array<number> {
-            let i: number[] = []
+            let nextPrecip: number[] = []
+            if (this.index > 0) {
+                this.todayData.hours.forEach((hour:any) => {
+                    nextPrecip.push(hour.precip)
+                })
+                return nextPrecip
+            }
             this.filterNextHours(this.todayData, this.weatherData).forEach(hour => {
-                i.push(hour.precip)
+                nextPrecip.push(Math.round(hour.precip))
             })
-            return i
+            return nextPrecip
         }
-    },
-    created() {
-        this.data.labels = this.labels
-        this.data.datasets[0].data = this.precipData
     },
     methods: {
         filterNextHours,
