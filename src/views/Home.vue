@@ -73,7 +73,7 @@ export default {
     return {
       weatherData: null as any,
       loading: false as boolean,
-      city: null as string | null,
+      city: localStorage.city as string | null,
       lastFetchTime: localStorage.lastFetch as string,
       lastFetchedCity: localStorage.city as string,
       error: false as boolean,
