@@ -105,7 +105,7 @@ export default {
           this.err = err.message
           this.loading = false
           }
-      navigator.geolocation.getCurrentPosition(success, error)
+      navigator.geolocation.getCurrentPosition(success, error, { enableHighAccuracy: false } )
     },
     async getCityNameFromCoordinates(latitude: number, longitude: number) {
       try {
