@@ -2,6 +2,8 @@
 This is a Weather front-end application written in Vue.js 3 with TypeScript and SASS. My goal has been to make a usefull
 weather front-end service almost from scratch utilizing existing APIs.
 
+The site is deployed using gh-pages here: https://tordbm.github.io/WeatherApp-client/
+
 ## Frameworks
 
 - [VueJS](https://vuejs.org/guide/quick-start.html)
@@ -24,10 +26,6 @@ weather front-end service almost from scratch utilizing existing APIs.
 ## Builder
 
 - [Vite](https://vitejs.dev/guide/)
-
-# Get Started
-
-Make a new repository and run the following commands based on need:
 
 ## Install
 
