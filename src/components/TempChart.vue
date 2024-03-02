@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { filterNextHours, parseConditions } from '@/shared/utils'
+import { filterNextHours } from '@/shared/utils'
 import {
     Chart as ChartJS,
     Title,
@@ -94,7 +94,6 @@ export default defineComponent({
     },
     methods: {
         filterNextHours,
-        parseConditions,
     }
 })
 </script>
