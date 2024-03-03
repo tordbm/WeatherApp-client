@@ -5,19 +5,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { filterNextHours } from '@/shared/utils'
-import {
-    Chart as ChartJS,
-    Title,
-    Tooltip,
-    Legend,
-    LineElement,
-    LinearScale,
-    CategoryScale,
-    PointElement,
-} from 'chart.js'
 import { Line } from 'vue-chartjs'
-
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
 
 export default defineComponent({
     components: {
