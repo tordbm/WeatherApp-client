@@ -15,7 +15,9 @@
     <tbody>
         <tr v-for="day in weatherData.days">
         <td>{{ formatDate(day.datetime) }}</td>
-        <td>{{ parseConditions(day.icon) }}</td>
+        <td>
+            <h4> {{ parseConditions(day.icon) }} </h4>
+        </td>
         <td>{{ day.precip }} mm</td>
         <td>{{ day.precipprob }} %</td>
         <td>{{ day.temp }} º</td>
