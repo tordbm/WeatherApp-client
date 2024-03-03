@@ -12,7 +12,7 @@ import { defineComponent } from 'vue';
 
 export default defineComponent ({
     props: {
-        loading: {type: Boolean, required: true}
+        loading: { type: Boolean, required: true }
     },
 })
 </script>

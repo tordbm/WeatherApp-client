@@ -1,5 +1,4 @@
 import { createApp } from "vue";
-
 import App from "@/App.vue";
 import { router } from "@/router/router";
 import {
@@ -13,7 +12,6 @@ import {
     PointElement,
     BarElement,
 } from 'chart.js'
-
 import "bootstrap/scss/bootstrap.scss";
 import "bootstrap-icons/font/bootstrap-icons.css";
 

@@ -7,11 +7,11 @@
       <div class="p-5 box border rounded-3">
         <label for="inputCity" class="form-label">Last fetch was for {{ lastCity }}: {{ lastFetch }}</label>
         <div class="input-group mb-3">
-        <input 
-        v-model="city" 
+        <input
+        v-model="city"
         type="input"
         placeholder="Enter a city to see its weather!"
-        id="inputCity" 
+        id="inputCity"
         class="form-control"
         @keyup.enter="fetchData"
         :disabled="loading">

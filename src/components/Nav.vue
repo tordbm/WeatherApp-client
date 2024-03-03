@@ -102,6 +102,3 @@ onMounted(() => {
   docElm.dataset.bsTheme = storedTheme || "light";
 });
 </script>
-
-<style lang="scss" scoped>
-</style>

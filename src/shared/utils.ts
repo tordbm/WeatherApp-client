@@ -5,7 +5,7 @@ import AdvancedFormat from 'dayjs/plugin/advancedFormat'
 dayjs.extend(utc)
 dayjs.extend(AdvancedFormat)
 
-export const V_CR_KEY = "XL48RQQY7M84CDS92HV6S5TW5"
+const V_CR_KEY = "XL48RQQY7M84CDS92HV6S5TW5"
 
 export function visualCrossingUrl(city: string) {
     return `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=metric&key=${V_CR_KEY}&contentType=json`
@@ -16,7 +16,7 @@ export function reverseGeocodingUrl(latitude: number, longitude: number) {
 }
 
 export const wordToEmoji: { [key: string]: string } = {
-    "snow": "\u2744",                 // ❄️ 
+    "snow": "\u2744",                 // ❄️
     "rain": "\u{1F327}",              // 🌧️
     "partly-cloudy-day": "\u{26C5}",  // ⛅️
     "partly-sunny-day": "\u{1F324}",  // 🌤️
@@ -27,7 +27,7 @@ export const wordToEmoji: { [key: string]: string } = {
     "partly-cloudy-night": "\u{2601}", // 🌜 (Cloud with moon)
     "fog": "\u{1F32B}",               // 🌫️ (Fog)
     "wind": "\u{1F4A8}"               // 💨 (wind)
-  }
+}
 
 export function formatDate(date: string): string {
     return dayjs(date).format("dddd Do of MMMM")
@@ -42,4 +42,4 @@ export function filterNextHours(todayData: any, weatherData: any): Array<any> {
     return todayData.hours.filter(
         (hour: any) => hour.datetime >= currentTime
         )
-    }
+}

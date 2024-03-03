@@ -10,10 +10,9 @@
             <td>{{ Math.round(hour.windspeed / 3.6) }} m/s</td>
             </tr>
         </tbody>
-        </table>  
+        </table>
 </template>
 <script lang="ts">
-
 import { defineComponent } from 'vue'
 import { filterNextHours, parseConditions } from '@/shared/utils'
 
@@ -31,5 +30,4 @@ export default defineComponent({
         parseConditions,
     }
 })
-
 </script>

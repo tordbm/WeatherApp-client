@@ -23,7 +23,7 @@
         <td>{{ day.tempmax }} º</td>
         </tr>
     </tbody>
-    </table>  
+    </table>
 </template>
 <script lang="ts">
 
@@ -39,5 +39,4 @@ export default defineComponent({
         parseConditions,
     }
 })
-
 </script>

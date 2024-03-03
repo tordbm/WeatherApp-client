@@ -31,7 +31,7 @@ import WeatherDataToday from './WeatherDataToday.vue';
 import WeatherData15DayNew from './WeatherData15DayNew.vue';
 
 export default defineComponent({
-    components: { 
+    components: {
     WeatherData15Day,
     WeatherDataToday,
     WeatherData15DayNew,

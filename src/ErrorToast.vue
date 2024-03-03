@@ -30,6 +30,6 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  toast = null; 
+  toast = null;
 });
 </script>
