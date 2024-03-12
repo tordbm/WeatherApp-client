@@ -35,7 +35,7 @@
     </div>
     <ContentLoader :loading="loading"/>
     
-    <div v-if="weatherData && !loading" class="col-md-6 mb-4">
+    <div v-if="weatherData && !loading" class="col-md-6 mb-4 top-10">
       <div class="p-5 box border rounded-3">
         <TempChart
         :weather-data="weatherData"
@@ -150,3 +150,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+
+#sticky {
+  
+}
+
+</style>

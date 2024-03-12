@@ -2,7 +2,7 @@
     <div>
         <nav class="nav justify-content-end">
             <a v-if="mode === 'Today'" class="nav-link disabled" href="#">Today</a>
-            <a v-else class="nav-link" href="#" @click.prevent="mode = 'Today'">Today</a>
+            <a v-else class="nav-link" href="#" @click.prevent="mode = 'Today'; handleAccordionClick(0)">Today</a>
             <a v-if="mode === '15Day'" class="nav-link disabled" href="#">15 Day Forecast (NEW)</a>
             <a v-else class="nav-link" href="#" @click.prevent="mode = '15Day'">15 Day Forecast (NEW)</a>
             <a v-if="mode === '15DayOld'" class="nav-link disabled" href="#">15 Day Forecast (OLD)</a>
