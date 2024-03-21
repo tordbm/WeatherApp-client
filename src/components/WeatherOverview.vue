@@ -23,7 +23,6 @@
         :weather-data="weatherData"/>
     </div>
 </template>
-
 <script lang="ts">
 import { defineComponent } from 'vue';
 import WeatherData15Day from './WeatherData15Day.vue';
@@ -47,10 +46,10 @@ export default defineComponent({
     methods: {
         handleAccordionClick(index: number) {
          this.$emit('accordion-click', index);
-  }
+        }
     }
-    
 })
+
 </script>
 <style lang="scss" scoped>
 h2::first-letter {

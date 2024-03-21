@@ -24,18 +24,36 @@ export const wordToEmoji: { [key: string]: string } = {
     "clear-day": "\u{2600}",          // ☀️
     "partly-rainy-day": "\u{1F326}",  // 🌦️
     "cloudy": "\u{2601}",             // ☁️
-    "clear-night": "\u{1F319}",       // 🌙 (Half moon with stars)
-    "partly-cloudy-night": "\u{2601}", // 🌜 (Cloud with moon)
-    "fog": "\u{3030}",               // 〰️ (Fog)
-    "wind": "\u{1F4A8}"               // 💨 (wind)
+    "clear-night": "\u{1F319}",       // 🌙
+    "partly-cloudy-night": "\u{2601}", // 🌜
+    "fog": "\u{3030}",               // 〰️
+    "wind": "\u{1F4A8}"               // 💨
+}
+
+export const conditionsToText: { [key: string]: string } = {
+  "snow": "Snow",
+  "rain": "Rain",
+  "partly-cloudy-day": "Partly Cloudy Day",
+  "partly-sunny-day": "Partly Sunny Day",
+  "clear-day": "Clear Day",
+  "partly-rainy-day": "Partly Rainy Day",
+  "cloudy": "Cloudy",
+  "clear-night": "Clear Night",
+  "partly-cloudy-night": "Partly Cloudy Night",
+  "fog": "Fog",
+  "wind": "Wind"
 }
 
 export function formatDate(date: string): string {
     return dayjs(date).format("dddd Do of MMMM")
 }
 
-export function parseConditions(icon: string): any {
+export function parseConditions(icon: string) {
     return wordToEmoji[icon] || icon
+}
+
+export function parseConditionsToText(icon: string) {
+    return conditionsToText[icon] || icon
 }
 
 export function filterNextHours(todayData: any, weatherData: any): Array<any> {
@@ -50,7 +68,7 @@ export function initTooltips(ref: string) {
       const tooltips: HTMLElement[] | undefined = this.$refs[ref] as HTMLElement[] | undefined
       if (tooltips) {
         tooltips.forEach((tooltip: HTMLElement) => {
-          new Tooltip(tooltip);
+          new Tooltip(tooltip)
         })
       }
     }
