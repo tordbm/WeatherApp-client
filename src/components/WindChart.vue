@@ -48,6 +48,7 @@ export default defineComponent({
                         }
                     },
                     y: {
+                        beginAtZero: true,
                         grace: '100%',
                         grid: {
                             display: true
