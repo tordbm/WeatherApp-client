@@ -43,7 +43,7 @@ export default defineComponent({
         return formatDate(day.datetime)
      },
      toggleAccordion(index: number): void {
-      this.$emit('accordion-click', index);
+      this.$emit('accordion-click', index)
     },
      formatDate,
      parseConditions,
