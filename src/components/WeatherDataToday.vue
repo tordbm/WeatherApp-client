@@ -5,7 +5,7 @@
             <tr v-for="hour in filterNextHours(todayData, weatherData)">
             <td>{{ hour.datetime.slice(0, 5)}}</td>
             <td>
-                <h4> {{ parseConditions(hour.icon) }} </h4>
+                <h4 ref="tooltip" :title="hour.icon"> {{ parseConditions(hour.icon) }} </h4>
             </td>
             <td>{{ Math.round(hour.temp) }} º</td>
             <td>{{ hour.precip }} mm</td>
@@ -16,7 +16,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { filterNextHours, parseConditions } from '@/shared/utils'
+import { filterNextHours, initTooltips, parseConditions } from '@/shared/utils'
 
 export default defineComponent({
     props: {
@@ -27,7 +27,11 @@ export default defineComponent({
         todayData: this.weatherData.days[0] as any,
     }
     },
+    mounted() {
+        this.initTooltip()
+    },
     methods: {
+        initTooltip: initTooltips('tooltip'),
         filterNextHours,
         parseConditions,
     }

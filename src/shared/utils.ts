@@ -1,6 +1,7 @@
 import dayjs from "dayjs"
 import utc from 'dayjs/plugin/utc'
 import AdvancedFormat from 'dayjs/plugin/advancedFormat'
+import { Tooltip } from 'bootstrap'
 
 dayjs.extend(utc)
 dayjs.extend(AdvancedFormat)
@@ -25,7 +26,7 @@ export const wordToEmoji: { [key: string]: string } = {
     "cloudy": "\u{2601}",             // ☁️
     "clear-night": "\u{1F319}",       // 🌙 (Half moon with stars)
     "partly-cloudy-night": "\u{2601}", // 🌜 (Cloud with moon)
-    "fog": "\u{1F32B}",               // 🌫️ (Fog)
+    "fog": "\u{3030}",               // 〰️ (Fog)
     "wind": "\u{1F4A8}"               // 💨 (wind)
 }
 
@@ -43,3 +44,14 @@ export function filterNextHours(todayData: any, weatherData: any): Array<any> {
         (hour: any) => hour.datetime >= currentTime
         )
 }
+
+export function initTooltips(ref: string) {
+    return function(this: any) {
+      const tooltips: HTMLElement[] | undefined = this.$refs[ref] as HTMLElement[] | undefined
+      if (tooltips) {
+        tooltips.forEach((tooltip: HTMLElement) => {
+          new Tooltip(tooltip);
+        })
+      }
+    }
+  }
