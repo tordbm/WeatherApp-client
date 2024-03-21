@@ -48,6 +48,12 @@
         :index="clickedAccordionIndex"
         />
       </div>
+      <div class="p-5 mt-3 box border rounded-3">
+        <WindChart
+        :weather-data="weatherData"
+        :index="clickedAccordionIndex"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -57,6 +63,7 @@ import ErrorToast from '@/ErrorToast.vue'
 import WeatherOverview from '@/components/WeatherOverview.vue'
 import PrecipChart from '@/components/PrecipChart.vue'
 import TempChart from '@/components/TempChart.vue'
+import WindChart from '@/components/WindChart.vue'
 import ContentLoader from '@/shared/ContentLoader.vue'
 import dayjs from 'dayjs'
 import { reverseGeocodingUrl, visualCrossingUrl } from '@/shared/utils'
@@ -68,6 +75,7 @@ export default {
     ErrorToast,
     PrecipChart,
     TempChart,
+    WindChart
 },
   data() {
     return {
