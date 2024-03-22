@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts" setup>
-import Nav from "@/components/Nav.vue";
-import Heads from "@/components/Heads.vue";
-import Footer from "@/components/Footer.vue";
+import Nav from '@/components/Nav.vue'
+import Heads from '@/components/Heads.vue'
+import Footer from '@/components/Footer.vue'
 </script>
