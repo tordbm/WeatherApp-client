@@ -10,7 +10,7 @@
           </h4>
         </td>
         <td>{{ Math.round(hour.temp) }} º</td>
-        <td>{{ hour.precip }} mm</td>
+        <td>{{ showPrecip(hour.precip) }}</td>
         <td>{{ Math.round(hour.windspeed / 3.6) }} m/s</td>
       </tr>
     </tbody>
@@ -23,6 +23,7 @@ import {
   initTooltips,
   parseConditions,
   parseConditionsToText,
+  showPrecip,
 } from '@/shared/utils'
 
 export default defineComponent({
@@ -42,6 +43,7 @@ export default defineComponent({
     filterNextHours,
     parseConditions,
     parseConditionsToText,
+    showPrecip,
   },
 })
 </script>

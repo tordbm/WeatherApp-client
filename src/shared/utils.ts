@@ -56,6 +56,10 @@ export function parseConditionsToText(icon: string) {
   return conditionsToText[icon] || icon
 }
 
+export function showPrecip(precip: number): string {
+  return precip > 0 ? precip + ' mm' : ' '
+}
+
 export function filterNextHours(todayData: any, weatherData: any): Array<any> {
   const currentTime = dayjs()
     .utc()
