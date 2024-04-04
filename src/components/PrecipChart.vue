@@ -70,12 +70,12 @@ export default defineComponent({
       let nextPrecip: number[] = []
       if (this.index > 0) {
         this.todayData.hours.forEach((hour: any) => {
-          nextPrecip.push(hour.precip)
+          nextPrecip.push(parseFloat(hour.precip.toFixed(1)))
         })
         return nextPrecip
       }
       this.filterNextHours(this.todayData, this.weatherData).forEach((hour) => {
-        nextPrecip.push(Math.round(hour.precip))
+        nextPrecip.push(parseFloat(hour.precip.toFixed(1)))
       })
       return nextPrecip
     },

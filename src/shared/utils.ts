@@ -57,7 +57,7 @@ export function parseConditionsToText(icon: string) {
 }
 
 export function showPrecip(precip: number): string {
-  return precip > 0 ? precip + ' mm' : ' '
+  return parseFloat(precip.toFixed(1)) > 0 ? precip.toFixed(1) + ' mm' : ' '
 }
 
 export function filterNextHours(todayData: any, weatherData: any): Array<any> {
