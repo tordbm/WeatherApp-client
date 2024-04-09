@@ -167,7 +167,9 @@ export default {
       if (typeof index === 'number') {
         this.clickedAccordionIndex = index
       } else {
+        const msg = 'Invalid index:' + index
         console.error('Invalid index:', index)
+        this.err = msg
       }
     },
   },
