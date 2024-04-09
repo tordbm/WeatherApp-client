@@ -168,7 +168,7 @@ export default {
         this.clickedAccordionIndex = index
       } else {
         const msg = 'Invalid index:' + index
-        console.error('Invalid index:', index)
+        console.error(msg)
         this.err = msg
       }
     },
