@@ -24,7 +24,7 @@
       {{ weatherData.resolvedAddress }}
     </h5>
     <WeatherDataToday v-if="mode === 'Today'" :weather-data="weatherData" />
-    <WeatherData15DayNew
+    <WeatherData15Day
       v-if="mode === '15Day'"
       :weather-data="weatherData"
       @accordion-click="handleAccordionClick" />
