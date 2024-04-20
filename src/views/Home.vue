@@ -44,7 +44,7 @@
         </div>
       </div>
     </div>
-    <ContentLoader :loading="loading" />
+    <ContentLoader v-if="loading" />
 
     <div v-if="weatherData && !loading" class="col-md-6 mb-4">
       <div class="p-5 box border rounded-3">
