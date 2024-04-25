@@ -29,6 +29,7 @@
             </svg>
           </button>
           <button
+            :disabled="!city"
             type="button"
             class="btn btn-outline-primary"
             @click="fetchData">
@@ -140,7 +141,7 @@ export default {
       }
     },
     async fetchData() {
-      if (!this.city) {
+      if (this.city == null) {
         return
       }
       try {
