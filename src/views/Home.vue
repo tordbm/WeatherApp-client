@@ -140,7 +140,7 @@ export default {
       }
     },
     async fetchData() {
-      if (!this.city || this.loading) {
+      if (!this.city) {
         return
       }
       try {
