@@ -45,21 +45,26 @@
         </div>
       </div>
     </div>
-    <ContentLoader v-if="loading" />
 
-    <div v-if="weatherData && !loading" class="col-md-6 mb-4">
-      <div class="p-5 box border rounded-3">
-        <TempChart :weather-data="weatherData" :index="clickedAccordionIndex" />
+    <ContentLoader v-slot :loading="loading">
+      <div v-if="weatherData && !loading" class="col-md-6 mb-4">
+        <div class="p-5 box border rounded-3">
+          <TempChart
+            :weather-data="weatherData"
+            :index="clickedAccordionIndex" />
+        </div>
+        <div class="p-5 mt-3 box border rounded-3">
+          <PrecipChart
+            :weather-data="weatherData"
+            :index="clickedAccordionIndex" />
+        </div>
+        <div class="p-5 mt-3 box border rounded-3">
+          <WindChart
+            :weather-data="weatherData"
+            :index="clickedAccordionIndex" />
+        </div>
       </div>
-      <div class="p-5 mt-3 box border rounded-3">
-        <PrecipChart
-          :weather-data="weatherData"
-          :index="clickedAccordionIndex" />
-      </div>
-      <div class="p-5 mt-3 box border rounded-3">
-        <WindChart :weather-data="weatherData" :index="clickedAccordionIndex" />
-      </div>
-    </div>
+    </ContentLoader>
   </div>
 </template>
 
@@ -141,7 +146,7 @@ export default {
       }
     },
     async fetchData() {
-      if (this.city == null) {
+      if (this.city == null || this.city === '') {
         return
       }
       try {
