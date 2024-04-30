@@ -56,9 +56,11 @@ import {
   parseConditions,
   parseConditionsToText,
   showPrecip,
+  formatDateShort,
 } from '@/shared/utils'
 
 export default defineComponent({
+  emits: ['accordion-click'],
   props: {
     weatherData: { type: Object, required: true },
   },
@@ -67,7 +69,9 @@ export default defineComponent({
   },
   methods: {
     formatDayInfo(day: any): string {
-      return formatDate(day.datetime)
+      return screen.width >= 1024
+        ? formatDate(day.datetime)
+        : formatDateShort(day.datetime)
     },
     toggleAccordion(index: number) {
       this.$emit('accordion-click', index)

@@ -36,6 +36,7 @@ import WeatherData15Day from './WeatherData15Day.vue'
 import WeatherDataToday from './WeatherDataToday.vue'
 
 export default defineComponent({
+  emits: ['accordion-click'],
   components: {
     WeatherData15Day,
     WeatherDataToday,

@@ -48,6 +48,10 @@ export function formatDate(date: string): string {
   return dayjs(date).format('dddd Do of MMMM')
 }
 
+export function formatDateShort(date: string): string {
+  return dayjs(date).format('ddd Do MMMM')
+}
+
 export function parseConditions(icon: string) {
   return wordToEmoji[icon] || icon
 }
