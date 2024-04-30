@@ -3,7 +3,7 @@
 </template>
 
 <style lang="scss">
-.box {
+body {
   background-color: var(--bs-tertiary-bg);
 }
 </style>

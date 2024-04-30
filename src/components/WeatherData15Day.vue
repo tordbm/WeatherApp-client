@@ -19,7 +19,7 @@
           <div class="icon-right">
             {{ parseConditions(day.icon) }}
           </div>
-          <div class="degree-right">{{ Math.round(day.temp) }} º</div>
+          <div class="degree-right">{{ Math.round(day.tempmax) }} º</div>
         </button>
       </h2>
       <div
@@ -28,7 +28,7 @@
         :aria-labelledby="'heading' + index"
         :data-bs-parent="'#accordionDays' + index">
         <div class="accordion-body">
-          <table class="table table-light table-hover mt-2">
+          <table class="table table-hover mt-2">
             <tbody>
               <tr v-for="hour in day.hours" :key="hour.datetime">
                 <td>{{ hour.datetime.slice(0, 5) }}</td>

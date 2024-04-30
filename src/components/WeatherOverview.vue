@@ -1,21 +1,43 @@
 <template>
   <div>
     <nav class="nav justify-content-end">
-      <a v-if="mode === 'Today'" class="nav-link disabled" href="#">Today</a>
-      <!-- prettier-ignore-attribute @click.prevent -->
-      <a
-        v-else
-        class="nav-link"
-        href="#"
-        @click.prevent="mode = 'Today'; handleAccordionClick(0)"
-        >Today</a
-      >
-      <a v-if="mode === '15Day'" class="nav-link disabled" href="#"
-        >15 Day Forecast</a
-      >
-      <a v-else class="nav-link" href="#" @click.prevent="mode = '15Day'"
-        >15 Day Forecast</a
-      >
+      <div v-if="today">
+        <!-- prettier-ignore-attribute @click.prevent -->
+        <input
+          type="radio"
+          class="btn-check"
+          id="Today"
+          @click.prevent="today = true; handleAccordionClick(0)"
+          checked />
+        <label class="btn" for="Today">Today</label>
+      </div>
+      <div v-else>
+        <!-- prettier-ignore-attribute @click.prevent -->
+        <input
+          type="radio"
+          class="btn-check"
+          id="Today"
+          @click.prevent="today = true; handleAccordionClick(0)" />
+        <label class="btn" for="Today">Today</label>
+      </div>
+
+      <div v-if="!today">
+        <input
+          type="radio"
+          class="btn-check"
+          id="15Day"
+          @click.prevent="today = false"
+          checked />
+        <label class="btn" for="15Day">15 Day</label>
+      </div>
+      <div v-else>
+        <input
+          type="radio"
+          class="btn-check"
+          id="15Day"
+          @click.prevent="today = false" />
+        <label class="btn" for="15Day">15 Day</label>
+      </div>
     </nav>
     <h2>
       {{ weatherData.address }}
@@ -23,9 +45,9 @@
     <h5>
       {{ weatherData.resolvedAddress }}
     </h5>
-    <WeatherDataToday v-if="mode === 'Today'" :weather-data="weatherData" />
+    <WeatherDataToday v-if="today" :weather-data="weatherData" />
     <WeatherData15Day
-      v-if="mode === '15Day'"
+      v-else
       :weather-data="weatherData"
       @accordion-click="handleAccordionClick" />
   </div>
@@ -46,7 +68,7 @@ export default defineComponent({
   },
   data() {
     return {
-      mode: 'Today' as string,
+      today: true,
     }
   },
   methods: {

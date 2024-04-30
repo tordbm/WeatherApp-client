@@ -1,6 +1,6 @@
 <template>
   {{ todayData.description }}
-  <table class="table table-light table-hover mt-2">
+  <table class="table table-hover mt-2">
     <tbody>
       <tr v-for="hour in filterNextHours(todayData, weatherData)">
         <td>{{ hour.datetime.slice(0, 5) }}</td>

@@ -2,7 +2,7 @@
   <Nav />
 
   <header class="container">
-    <Heads>World Wide Weather without breaking a sweat!</Heads>
+    <Heads></Heads>
   </header>
 
   <main class="container flex-shrink-0 mb-4">
