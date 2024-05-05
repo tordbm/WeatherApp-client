@@ -1,5 +1,6 @@
 <template>
   <div class="row align-items-center">
+    <Alerts v-if="weatherData.alerts.length > 0" :weather-data="weatherData" />
     <div class="col-md">
       <h2>
         {{ weatherData.address }}
@@ -61,12 +62,14 @@
 import { defineComponent } from 'vue'
 import WeatherData15Day from './WeatherData15Day.vue'
 import WeatherDataToday from './WeatherDataToday.vue'
+import Alerts from './Alerts.vue'
 
 export default defineComponent({
   emits: ['accordion-click'],
   components: {
     WeatherData15Day,
     WeatherDataToday,
+    Alerts,
   },
   props: {
     weatherData: { type: Object, required: true },
@@ -83,6 +86,7 @@ export default defineComponent({
   },
 })
 </script>
+
 <style lang="scss" scoped>
 h2::first-letter {
   text-transform: capitalize;

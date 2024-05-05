@@ -66,7 +66,6 @@ import PrecipChart from '@/components/PrecipChart.vue'
 import TempChart from '@/components/TempChart.vue'
 import WindChart from '@/components/WindChart.vue'
 import ContentLoader from '@/shared/ContentLoader.vue'
-import dayjs from 'dayjs'
 import { reverseGeocodingUrl, visualCrossingUrl } from '@/shared/utils'
 
 export default {
@@ -83,17 +82,11 @@ export default {
       weatherData: null as any,
       loading: false as boolean,
       city: localStorage.city as string | null,
-      lastFetchTime: localStorage.lastFetch as string,
       lastFetchedCity: localStorage.city as string,
       error: false as boolean,
       err: null as string | null,
       clickedAccordionIndex: 0 as number,
     }
-  },
-  computed: {
-    timeStamp(): string {
-      return dayjs().format('HH:mm:ss DD.MM.YYYY')
-    },
   },
   mounted() {
     this.fetchData()
@@ -138,13 +131,8 @@ export default {
         return
       }
       try {
-        ;[this.loading, this.lastFetchTime, this.lastFetchedCity] = [
-          true,
-          this.timeStamp,
-          this.city,
-        ]
+        ;[this.loading, this.lastFetchedCity] = [true, this.city]
         localStorage.city = this.city
-        localStorage.lastFetch = this.lastFetchTime
         const response = await fetch(visualCrossingUrl(this.city))
         const data = await response.json()
         this.weatherData = data

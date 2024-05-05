@@ -84,6 +84,7 @@ export default defineComponent({
   },
 })
 </script>
+
 <style lang="scss">
 .accordion {
   .accordion-item {
