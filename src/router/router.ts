@@ -10,7 +10,7 @@ export const routes = [
   },
   {
     path: '/about',
-    component: () => import('@/layouts/Page.vue'),
+    component: () => import('@/layouts/Default.vue'),
     children: [
       { path: '', name: 'About', component: () => import('@/views/About.vue') },
     ],

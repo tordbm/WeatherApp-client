@@ -1,12 +1,8 @@
 <template>
   <Nav />
 
-  <header class="container">
-    <Heads></Heads>
-  </header>
-
-  <main class="container flex-shrink-0 mb-4">
-    <router-view />
+  <main class="container flex-shrink-0 mb-4 mt-4">
+    <RouterView />
   </main>
 
   <footer class="container footer mb-2 mt-auto">
@@ -16,6 +12,5 @@
 
 <script lang="ts" setup>
 import Nav from '@/components/Nav.vue'
-import Heads from '@/components/Heads.vue'
 import Footer from '@/components/Footer.vue'
 </script>
