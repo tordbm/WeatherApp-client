@@ -6,10 +6,9 @@ import { Tooltip } from 'bootstrap'
 dayjs.extend(utc)
 dayjs.extend(AdvancedFormat)
 
-const V_CR_KEY = 'XL48RQQY7M84CDS92HV6S5TW5'
-
+// prettier-ignore
 export function visualCrossingUrl(city: string) {
-  return `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=metric&key=${V_CR_KEY}&contentType=json`
+  return `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=metric&key=${import.meta.env.VITE_VC_API_KEY}&contentType=json`
 }
 
 export function reverseGeocodingUrl(latitude: number, longitude: number) {
