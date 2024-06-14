@@ -44,6 +44,7 @@
             :weather-data="weatherData"
             :index="clickedAccordionIndex" />
         </div>
+
         <div class="p-5">
           <PrecipChart
             :weather-data="weatherData"
