@@ -17,6 +17,9 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Set up environment variables
+        run: echo "VITE_VC_API_KEY=${{ secrets.VITE_VC_API_KEY }}" >> $GITHUB_ENV
+
       - name: Install dependencies
         run: npm install
 
