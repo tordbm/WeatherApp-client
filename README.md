@@ -40,7 +40,7 @@ npm run dev
 ```
 
 ## Deployment
-
+Project is auto-deployed on push:
 ```bash
-npm run deploy
+git push
 ```
