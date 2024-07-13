@@ -1,20 +1,22 @@
 <template>
   <div class="toast-container position-absolute top-0 end-0 p-3">
-    <div
-      ref="bsToast"
-      class="toast show"
-      role="alert"
-      aria-live="assertive"
-      aria-atomic="true">
-      <div class="toast-header bg-danger text-dark">
-        <strong class="me-auto">Error</strong>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="toast"
-          aria-label="Close"></button>
+    <div v-for="alert in store.alertsList">
+      <div
+        ref="bsToast"
+        class="toast show mt-2"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true">
+        <div class="toast-header bg-danger text-dark">
+          <strong class="me-auto">Error</strong>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+            aria-label="Close"></button>
+        </div>
+        <div class="toast-body box">{{ alert }}</div>
       </div>
-      <div class="toast-body box">{{ errorMsg }}</div>
     </div>
   </div>
 </template>
@@ -22,13 +24,10 @@
 <script lang="ts" setup>
 import { onMounted, ref, onUnmounted } from 'vue'
 import { Toast } from 'bootstrap'
+import { useAlertsStore } from './stores/alertsStore'
 
 const bsToast = ref()
-
-defineProps({
-  errorMsg: null,
-  String,
-})
+const store = useAlertsStore()
 
 let toast
 

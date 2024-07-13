@@ -1,6 +1,6 @@
 <template>
   <div class="row align-items-md-stretch">
-    <ErrorToast v-if="error" :error-msg="err" />
+    <ErrorToast v-if="alertsList.length > 0" />
     <div class="col-md-6 mb-3">
       <div class="col-md-8 mb-3">
         <div class="input-group mb-3">
@@ -68,6 +68,8 @@ import TempChart from '@/components/TempChart.vue'
 import WindChart from '@/components/WindChart.vue'
 import ContentLoader from '@/shared/ContentLoader.vue'
 import { reverseGeocodingUrl, visualCrossingUrl } from '@/shared/utils'
+import { useAlertsStore } from '@/stores/alertsStore'
+import { mapState } from 'pinia'
 
 export default {
   components: {
@@ -84,10 +86,11 @@ export default {
       loading: false as boolean,
       city: localStorage.city as string | null,
       lastFetchedCity: localStorage.city as string,
-      error: false as boolean,
-      err: null as string | null,
       clickedAccordionIndex: 0 as number,
     }
+  },
+  computed: {
+    ...mapState(useAlertsStore, ['alertsList']),
   },
   mounted() {
     this.fetchData()
@@ -101,8 +104,7 @@ export default {
         this.getCityNameFromCoordinates(latitude, longitude)
       }
       const error = (err: any) => {
-        this.error = true
-        this.err = err.message
+        this.alertsList.push(err.message)
         this.loading = false
       }
       navigator.geolocation.getCurrentPosition(success, error, {
@@ -117,8 +119,7 @@ export default {
         this.city = data.address.city
         this.fetchData()
       } catch (error: any) {
-        this.error = true
-        this.err = error.message
+        this.alertsList.push(error.message)
         console.error(error)
       }
     },
@@ -135,8 +136,7 @@ export default {
         this.clickedAccordionIndex = 0
       } catch (error: any) {
         console.error(error)
-        this.error = true
-        this.err = error.message
+        this.alertsList.push(error.message)
       } finally {
         this.loading = false
       }
@@ -147,7 +147,7 @@ export default {
       } else {
         const msg = 'Invalid index:' + index
         console.error(msg)
-        this.err = msg
+        this.alertsList.push(msg)
       }
     },
   },

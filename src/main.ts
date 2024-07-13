@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 import App from '@/App.vue'
 import { router } from '@/router/router'
 import {
@@ -25,6 +26,7 @@ ChartJS.register(
   Tooltip,
   Legend
 )
-
+const pinia = createPinia()
 const app = createApp(App).use(router)
+app.use(pinia)
 router.isReady().then(() => app.mount('#app'))
