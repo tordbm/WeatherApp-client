@@ -116,7 +116,7 @@ export default {
       try {
         const response = await fetch(reverseGeocodingUrl(latitude, longitude))
         const data = await response.json()
-        this.city = data.address.city
+        this.city = data.address.city || data.address.town
         this.fetchData()
       } catch (error: any) {
         this.alertsList.push(error.message)

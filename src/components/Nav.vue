@@ -38,6 +38,35 @@
               {{ route.path !== `/` ? route.children[0].name : '' }}
             </router-link>
           </li>
+          <li v-if="user.currentUser">
+            <div class="nav-item dropdown">
+              <button
+                class="btn btn-no-outline nav-link dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+                {{ user.currentUser.username }}
+              </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item text-danger" @click="logout"
+                    >Sign out</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li v-else class="nav-item text-uppercase">
+            <button
+              class="btn btn-no-outline nav-item text-uppercase"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#loginModal"
+              aria-expanded="true">
+              Sign in
+            </button>
+          </li>
+          <LoginModal id="loginModal" />
         </ul>
       </div>
     </nav>
@@ -48,8 +77,16 @@
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { routes } from '@/router/router'
+import { useUserStore } from '@/stores/userStore'
+import LoginModal from '@/components/LoginModal.vue'
 
 const router = useRouter()
+const user = useUserStore()
 const activeRoute = computed(() => router.currentRoute.value.path)
 const isActive = (path: string) => path === activeRoute.value
+
+function logout() {
+  user.token = null
+  user.currentUser = null
+}
 </script>

@@ -11,6 +11,8 @@ export function visualCrossingUrl(city: string) {
   return `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=metric&key=${import.meta.env.VITE_VC_API_KEY}&contentType=json`
 }
 
+export const FAST_API_URL = 'https://evil-caty-monclair-3848f875.koyeb.app'
+
 export function reverseGeocodingUrl(latitude: number, longitude: number) {
   return `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&addressdetails=1`
 }
