@@ -99,7 +99,7 @@ export function setCookie(cname: string, cvalue: string, exdays: number) {
   document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/"
 }
 
-export function getCookie(cname: string) {
+function getCookie(cname: string) {
   let name = cname + "="
   let ca = document.cookie.split(';')
   for(let i = 0; i < ca.length; i++) {
@@ -114,17 +114,17 @@ export function getCookie(cname: string) {
   return ""
 }
 
+function existsCookie(): boolean {
+  const cookie = getCookie('accesstoken')
+  return cookie !== ''
+}
+
 export function deleteCookie(cname: string) {
   document.cookie = cname + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/;'
 }
 
-export function checkExistsCookie(): boolean {
-  let cookie: any = getCookie("accesstoken")
-  return cookie !== "" && cookie !== null
-}
-
 export async function me() {
-  if (!checkExistsCookie) {
+  if (!existsCookie()) {
     return
   }
   try {

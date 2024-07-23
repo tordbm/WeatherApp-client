@@ -5,7 +5,6 @@ export const useUserStore = defineStore('user', {
   state: () => {
     return {
       currentUser: null as User | null,
-      token: null as string | null,
     }
   },
 })

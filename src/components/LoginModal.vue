@@ -82,7 +82,7 @@ export default defineComponent({
     }
   },
   computed: {
-    ...mapWritableState(useUserStore, ['token', 'currentUser']),
+    ...mapWritableState(useUserStore, ['currentUser']),
     ...mapState(useAlertsStore, ['alertsList']),
     formValid() {
       return this.username && this.password
