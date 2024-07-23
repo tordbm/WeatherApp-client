@@ -18,7 +18,7 @@
 
         <div class="modal-body">
           <ContentLoader :loading="loading">
-            <form>
+            <form @submit.prevent="login">
               <div class="mb-3">
                 <label for="usernameInput" class="form-label">Username</label>
                 <input
@@ -26,7 +26,8 @@
                   type="username"
                   class="form-control"
                   id="usernameInput"
-                  aria-describedby="usernamelHelp" />
+                  aria-describedby="usernamelHelp"
+                  required />
               </div>
               <div class="mb-3">
                 <label for="inputPassword" class="form-label">Password</label>
@@ -99,6 +100,7 @@ export default defineComponent({
         client_id: '',
         client_secret: '',
       })
+      try {
       this.loading = true
       const tokenResponse: any = await axios
         .post(`${FAST_API_URL}${'/token'}`, data, {
@@ -106,11 +108,13 @@ export default defineComponent({
             'Content-Type': 'application/x-www-form-urlencoded',
           },
         })
-        .catch((error) => {
-          this.alertsList.push(error.message)
-        })
-      setCookie('accesstoken', tokenResponse.data.access_token, 1)
       
+      setCookie('accesstoken', tokenResponse.data.access_token, 30)
+      } catch (_) {
+        this.alertsList.push('Invalid username or password')
+        this.loading = false
+        return
+      }
       await me()
       
       this.loading = false
