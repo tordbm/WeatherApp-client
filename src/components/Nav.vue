@@ -66,7 +66,7 @@
               Sign in
             </button>
           </li>
-          <LoginModal id="loginModal" />
+          <LoginModal />
         </ul>
       </div>
     </nav>

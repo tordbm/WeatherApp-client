@@ -1,4 +1,5 @@
 # Weather Application Front-end
+
 This is a Weather front-end application written in Vue.js 3 with TypeScript and SASS. My goal has been to make a usefull
 weather front-end service almost from scratch utilizing existing APIs.
 
@@ -40,7 +41,9 @@ npm run dev
 ```
 
 ## Deployment
+
 Project is auto-deployed on push:
+
 ```bash
 git push
 ```

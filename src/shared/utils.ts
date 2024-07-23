@@ -94,15 +94,15 @@ export function initTooltips(ref: string) {
 
 export function setCookie(cname: string, cvalue: string, exmins: number) {
   const d = new Date()
-  d.setTime(d.getTime() + (exmins * 60 * 1000))
-  let expires = "expires="+d.toUTCString()
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/"
+  d.setTime(d.getTime() + exmins * 60 * 1000)
+  let expires = 'expires=' + d.toUTCString()
+  document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/'
 }
 
 function getCookie(cname: string) {
-  let name = cname + "="
+  let name = cname + '='
   let ca = document.cookie.split(';')
-  for(let i = 0; i < ca.length; i++) {
+  for (let i = 0; i < ca.length; i++) {
     let c = ca[i]
     while (c.charAt(0) == ' ') {
       c = c.substring(1)
@@ -111,7 +111,7 @@ function getCookie(cname: string) {
       return c.substring(name.length, c.length)
     }
   }
-  return ""
+  return ''
 }
 
 function existsCookie(): boolean {
@@ -129,12 +129,14 @@ export async function me() {
   }
   try {
     const access_token = getCookie('accesstoken')
-    const userInfoResponse: any = await axios
-      .get(`${FAST_API_URL}${'/users/me'}`, {
+    const userInfoResponse: any = await axios.get(
+      `${FAST_API_URL}${'/users/me'}`,
+      {
         headers: {
           Authorization: `Bearer ${access_token}`,
         },
-      })
+      }
+    )
 
     user.currentUser = {
       id: userInfoResponse.data.id,
@@ -153,12 +155,12 @@ export async function hashString(str: string | null): Promise<string> {
   if (!str) {
     return ''
   }
-  
+
   const encoder = new TextEncoder()
   const data = encoder.encode(str)
   const hashBuffer = await crypto.subtle.digest('SHA-256', data)
   const hashArray = Array.from(new Uint8Array(hashBuffer))
-  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('')
-  
+  const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join('')
+
   return hashHex
 }
