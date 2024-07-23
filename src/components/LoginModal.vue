@@ -60,7 +60,7 @@
   </div>
 </template>
 <script lang="ts">
-import { FAST_API_URL } from '@/shared/utils'
+import { FAST_API_URL, setCookie, me, hashString } from '@/shared/utils'
 import { useUserStore } from '@/stores/userStore'
 import axios from 'axios'
 import qs from 'qs'
@@ -90,10 +90,11 @@ export default defineComponent({
   },
   methods: {
     async login() {
+      const hashedPassword = await hashString(this.password)
       const data = qs.stringify({
         grant_type: '',
         username: this.username,
-        password: this.password,
+        password: hashedPassword,
         scope: '',
         client_id: '',
         client_secret: '',
@@ -108,25 +109,10 @@ export default defineComponent({
         .catch((error) => {
           this.alertsList.push(error.message)
         })
-      this.token = tokenResponse.data.access_token
-
-      const userInfoResponse: any = await axios
-        .get(`${FAST_API_URL}${'/users/me'}`, {
-          headers: {
-            Authorization: `Bearer ${this.token}`,
-          },
-        })
-        .catch((error) => {
-          this.alertsList.push(error.message)
-        })
-      this.currentUser = {
-        id: userInfoResponse.data.id,
-        username: userInfoResponse.data.username,
-        email: userInfoResponse.data.email,
-        created_at: userInfoResponse.data.created_at,
-        disabled_at: userInfoResponse.data.disabled_at,
-        disabled: userInfoResponse.data.disabled,
-      }
+      setCookie('accesstoken', tokenResponse.data.access_token, 1)
+      
+      await me()
+      
       this.loading = false
       const modalElement = this.$refs.loginModal as HTMLElement
       const modalInstance = Modal.getInstance(modalElement)!

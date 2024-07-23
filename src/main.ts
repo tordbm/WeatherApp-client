@@ -27,6 +27,5 @@ ChartJS.register(
   Legend
 )
 const pinia = createPinia()
-const app = createApp(App).use(router)
-app.use(pinia)
+const app = createApp(App).use(router).use(pinia)
 router.isReady().then(() => app.mount('#app'))

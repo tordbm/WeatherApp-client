@@ -79,6 +79,7 @@ import { useRouter } from 'vue-router'
 import { routes } from '@/router/router'
 import { useUserStore } from '@/stores/userStore'
 import LoginModal from '@/components/LoginModal.vue'
+import { deleteCookie } from '@/shared/utils'
 
 const router = useRouter()
 const user = useUserStore()
@@ -86,7 +87,7 @@ const activeRoute = computed(() => router.currentRoute.value.path)
 const isActive = (path: string) => path === activeRoute.value
 
 function logout() {
-  user.token = null
+  deleteCookie('accesstoken')
   user.currentUser = null
 }
 </script>

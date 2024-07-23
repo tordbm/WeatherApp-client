@@ -1,6 +1,5 @@
 <template>
   <div class="row align-items-md-stretch">
-    <ErrorToast v-if="alertsList.length > 0" />
     <div class="col-md-6 mb-3">
       <div class="col-md-8 mb-3">
         <div class="input-group mb-3">

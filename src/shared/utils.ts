@@ -2,10 +2,12 @@ import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import AdvancedFormat from 'dayjs/plugin/advancedFormat'
 import { Tooltip } from 'bootstrap'
+import axios from 'axios'
+import { useUserStore } from '@/stores/userStore'
 
 dayjs.extend(utc)
 dayjs.extend(AdvancedFormat)
-
+const user = useUserStore()
 // prettier-ignore
 export function visualCrossingUrl(city: string) {
   return `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=metric&key=${import.meta.env.VITE_VC_API_KEY}&contentType=json`
@@ -88,4 +90,75 @@ export function initTooltips(ref: string) {
       })
     }
   }
+}
+
+export function setCookie(cname: string, cvalue: string, exdays: number) {
+  const d = new Date()
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000))
+  let expires = "expires="+d.toUTCString()
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/"
+}
+
+export function getCookie(cname: string) {
+  let name = cname + "="
+  let ca = document.cookie.split(';')
+  for(let i = 0; i < ca.length; i++) {
+    let c = ca[i]
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1)
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length)
+    }
+  }
+  return ""
+}
+
+export function deleteCookie(cname: string) {
+  document.cookie = cname + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/;'
+}
+
+export function checkExistsCookie(): boolean {
+  let cookie: any = getCookie("accesstoken")
+  return cookie !== "" && cookie !== null
+}
+
+export async function me() {
+  if (!checkExistsCookie) {
+    return
+  }
+  try {
+    const access_token = getCookie('accesstoken')
+    const userInfoResponse: any = await axios
+      .get(`${FAST_API_URL}${'/users/me'}`, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      })
+
+    user.currentUser = {
+      id: userInfoResponse.data.id,
+      username: userInfoResponse.data.username,
+      email: userInfoResponse.data.email,
+      created_at: userInfoResponse.data.created_at,
+      disabled_at: userInfoResponse.data.disabled_at,
+      disabled: userInfoResponse.data.disabled,
+    }
+  } catch (_) {
+    return
+  }
+}
+
+export async function hashString(str: string | null): Promise<string> {
+  if (!str) {
+    return ''
+  }
+  
+  const encoder = new TextEncoder()
+  const data = encoder.encode(str)
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data)
+  const hashArray = Array.from(new Uint8Array(hashBuffer))
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('')
+  
+  return hashHex
 }
