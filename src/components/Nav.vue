@@ -56,9 +56,9 @@
               </ul>
             </div>
           </li>
-          <li v-else class="nav-item text-uppercase">
+          <li v-else class="nav-item">
             <button
-              class="btn btn-no-outline nav-item text-uppercase"
+              class="btn btn-no-outline nav-link text-uppercase"
               type="button"
               data-bs-toggle="modal"
               data-bs-target="#loginModal"
