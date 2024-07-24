@@ -114,7 +114,7 @@ function getCookie(cname: string) {
   return ''
 }
 
-function existsCookie(): boolean {
+export function existsCookie(): boolean {
   const cookie = getCookie('accesstoken')
   return cookie !== ''
 }

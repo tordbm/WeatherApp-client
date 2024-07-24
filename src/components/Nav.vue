@@ -38,34 +38,37 @@
               {{ route.path !== `/` ? route.children[0].name : '' }}
             </router-link>
           </li>
-          <li v-if="user.currentUser">
-            <div class="nav-item dropdown">
+          <ContentLoader
+            :loading="!user.currentUser && existsCookie()">
+            <li v-if="user.currentUser">
+              <div class="nav-item dropdown">
+                <button
+                  class="btn btn-no-outline nav-link dropdown-toggle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  {{ user.currentUser.username }}
+                </button>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a class="dropdown-item text-danger" @click="logout"
+                      >Sign out</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li v-else class="nav-item">
               <button
-                class="btn btn-no-outline nav-link dropdown-toggle"
+                class="btn btn-no-outline nav-link text-uppercase"
                 type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false">
-                {{ user.currentUser.username }}
+                data-bs-toggle="modal"
+                data-bs-target="#loginModal"
+                aria-expanded="true">
+                Sign in
               </button>
-              <ul class="dropdown-menu">
-                <li>
-                  <a class="dropdown-item text-danger" @click="logout"
-                    >Sign out</a
-                  >
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li v-else class="nav-item">
-            <button
-              class="btn btn-no-outline nav-link text-uppercase"
-              type="button"
-              data-bs-toggle="modal"
-              data-bs-target="#loginModal"
-              aria-expanded="true">
-              Sign in
-            </button>
-          </li>
+            </li>
+          </ContentLoader>
           <LoginModal />
         </ul>
       </div>
@@ -79,7 +82,8 @@ import { useRouter } from 'vue-router'
 import { routes } from '@/router/router'
 import { useUserStore } from '@/stores/userStore'
 import LoginModal from '@/components/LoginModal.vue'
-import { deleteCookie } from '@/shared/utils'
+import { deleteCookie, existsCookie } from '@/shared/utils'
+import ContentLoader from '@/shared/ContentLoader.vue'
 
 const router = useRouter()
 const user = useUserStore()
