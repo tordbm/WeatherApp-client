@@ -83,18 +83,11 @@ export default defineComponent({
       username: null as string | null,
       password: null as string | null,
       loading: false,
-      showSignup: false,
     }
   },
   computed: {
-    showSignupValue(): boolean {
-      return this.showSignup
-    },
     ...mapWritableState(useUserStore, ['currentUser']),
     ...mapState(useAlertsStore, ['alertsList']),
-    formValid() {
-      return this.username && this.password
-    },
   },
   methods: {
     async login() {
