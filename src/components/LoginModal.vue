@@ -133,6 +133,9 @@ export default defineComponent({
       modalInstance.hide()
     },
     setCredentials(username: string, password: string) {
+      const modalElement = this.$refs.loginModal as HTMLElement
+      const modalInstance = Modal.getInstance(modalElement)!
+      modalInstance.show()
       this.username = username
       this.password = password
       this.login()
