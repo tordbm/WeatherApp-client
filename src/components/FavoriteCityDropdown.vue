@@ -19,10 +19,22 @@
       </svg>
     </button>
     <ul class="dropdown-menu">
-      <li v-for="item in favoredCities">
-        <a class="dropdown-item" href="#" @click="onSelectedCity(item.city)">{{
-          item.city
-        }}</a>
+      <li
+        v-for="item in favoredCities"
+        :key="item.favored_id"
+        class="d-flex align-items-center">
+        <a
+          class="dropdown-item me-auto"
+          href="#"
+          @click="onSelectedCity(item.city)"
+          >{{ item.city }}</a
+        >
+        <button
+          class="btn text-danger"
+          type="button"
+          @click="removeFavoredCity(item.favored_id)">
+          ―
+        </button>
       </li>
     </ul>
   </div>
@@ -30,7 +42,9 @@
 <script lang="ts">
 import { FAST_API_URL, getCookie } from '@/shared/utils'
 import { useAlertsStore } from '@/stores/alertsStore'
+import { useFavoredCityStore } from '@/stores/favoredCityStore'
 import axios from 'axios'
+import { mapWritableState } from 'pinia'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
@@ -43,8 +57,10 @@ export default defineComponent({
   data() {
     return {
       selectedCity: '',
-      favoredCities: [] as any[],
     }
+  },
+  computed: {
+    ...mapWritableState(useFavoredCityStore, ['favoredCities']),
   },
   async mounted() {
     try {
@@ -62,6 +78,21 @@ export default defineComponent({
     onSelectedCity(city: string) {
       this.selectedCity = city
       this.$emit('selectedCity', this.selectedCity)
+    },
+    removeFavoredCity(favored_id: string) {
+      try {
+        axios.delete(
+          `${FAST_API_URL}/delete_favored_city/?favored_id=${favored_id}`,
+          {
+            headers: { Authorization: `Bearer ${getCookie('accesstoken')}` },
+          }
+        )
+        this.favoredCities = this.favoredCities.filter(
+          (item) => item.favored_id !== favored_id
+        )
+      } catch (error: any) {
+        this.alertsList.push(error.message)
+      }
     },
   },
 })
