@@ -36,7 +36,7 @@
         @accordion-click="handleAccordionClick" />
     </div>
 
-    <ContentLoader v-slot :loading="loading">
+    <ContentLoader :loading="loading">
       <div v-if="weatherData && !loading" class="col-md-6 mb-4">
         <div class="p-5">
           <TempChart
@@ -68,7 +68,6 @@ import WindChart from '@/components/WindChart.vue'
 import ContentLoader from '@/shared/ContentLoader.vue'
 import { reverseGeocodingUrl, visualCrossingUrl } from '@/shared/utils'
 import { useAlertsStore } from '@/stores/alertsStore'
-import { mapState } from 'pinia'
 
 export default {
   components: {
@@ -79,6 +78,12 @@ export default {
     TempChart,
     WindChart,
   },
+  setup() {
+    const { alertsList } = useAlertsStore()
+    return {
+      alertsList,
+    }
+  },
   data() {
     return {
       weatherData: null as any,
@@ -87,9 +92,6 @@ export default {
       lastFetchedCity: localStorage.city as string,
       clickedAccordionIndex: 0 as number,
     }
-  },
-  computed: {
-    ...mapState(useAlertsStore, ['alertsList']),
   },
   mounted() {
     this.fetchData()

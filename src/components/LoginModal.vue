@@ -66,7 +66,6 @@ import { FAST_API_URL, setCookie, me, hashString } from '@/shared/utils'
 import { useUserStore } from '@/stores/userStore'
 import axios from 'axios'
 import qs from 'qs'
-import { mapState, mapWritableState } from 'pinia'
 import { defineComponent } from 'vue'
 import { useAlertsStore } from '@/stores/alertsStore'
 import { Modal } from 'bootstrap'
@@ -78,16 +77,20 @@ export default defineComponent({
     ContentLoader,
     SignupModal,
   },
+  setup() {
+    const { alertsList } = useAlertsStore()
+    const { currentUser } = useUserStore()
+    return {
+      alertsList,
+      currentUser,
+    }
+  },
   data() {
     return {
       username: null as string | null,
       password: null as string | null,
       loading: false,
     }
-  },
-  computed: {
-    ...mapWritableState(useUserStore, ['currentUser']),
-    ...mapState(useAlertsStore, ['alertsList']),
   },
   methods: {
     async login() {

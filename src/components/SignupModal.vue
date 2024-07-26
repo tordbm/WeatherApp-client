@@ -67,7 +67,6 @@
   </div>
 </template>
 <script lang="ts">
-import { mapState } from 'pinia'
 import { defineComponent } from 'vue'
 import { useAlertsStore } from '@/stores/alertsStore'
 import { FAST_API_URL, hashString } from '@/shared/utils'
@@ -79,6 +78,12 @@ export default defineComponent({
   components: {
     ContentLoader,
   },
+  setup() {
+    const { alertsList } = useAlertsStore()
+    return {
+      alertsList,
+    }
+  },
   data() {
     return {
       username: '',
@@ -89,7 +94,6 @@ export default defineComponent({
     }
   },
   computed: {
-    ...mapState(useAlertsStore, ['alertsList']),
     passwordsMatch() {
       return this.password === this.controlPassword
     },
