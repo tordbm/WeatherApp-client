@@ -99,7 +99,7 @@ export function setCookie(cname: string, cvalue: string, exmins: number) {
   document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/'
 }
 
-function getCookie(cname: string) {
+export function getCookie(cname: string) {
   let name = cname + '='
   let ca = document.cookie.split(';')
   for (let i = 0; i < ca.length; i++) {

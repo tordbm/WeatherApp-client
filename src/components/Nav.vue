@@ -38,8 +38,7 @@
               {{ route.path !== `/` ? route.children[0].name : '' }}
             </router-link>
           </li>
-          <ContentLoader
-            :loading="!user.currentUser && existsCookie()">
+          <ContentLoader :loading="!user.currentUser && existsCookie()">
             <li v-if="user.currentUser">
               <div class="nav-item dropdown">
                 <button
