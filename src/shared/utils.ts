@@ -130,7 +130,7 @@ export async function me() {
   try {
     const access_token = getCookie('accesstoken')
     const userInfoResponse: any = await axios.get(
-      `${FAST_API_URL}${'/users/me'}`,
+      `${FAST_API_URL}${'/users/me/'}`,
       {
         headers: {
           Authorization: `Bearer ${access_token}`,
