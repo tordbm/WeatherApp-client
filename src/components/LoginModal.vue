@@ -112,7 +112,7 @@ export default defineComponent({
           }
         )
 
-        setCookie('accesstoken', tokenResponse.data.access_token, 30)
+        setCookie('accesstoken', tokenResponse.data.access_token, 1440)
       } catch (_) {
         this.alertsList.push('Invalid username or password')
         this.loading = false
