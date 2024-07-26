@@ -67,7 +67,7 @@ import { useUserStore } from '@/stores/userStore'
 import axios from 'axios'
 import qs from 'qs'
 import { defineComponent } from 'vue'
-import { useAlertsStore } from '@/stores/alertsStore'
+import { useErrorStore } from '@/stores/errorStore'
 import { Modal } from 'bootstrap'
 import ContentLoader from '@/shared/ContentLoader.vue'
 import SignupModal from './SignupModal.vue'
@@ -78,10 +78,10 @@ export default defineComponent({
     SignupModal,
   },
   setup() {
-    const { alertsList } = useAlertsStore()
+    const { errorsList } = useErrorStore()
     const { currentUser } = useUserStore()
     return {
-      alertsList,
+      errorsList,
       currentUser,
     }
   },
@@ -117,7 +117,7 @@ export default defineComponent({
 
         setCookie('accesstoken', tokenResponse.data.access_token, 1440)
       } catch (_) {
-        this.alertsList.push('Invalid username or password')
+        this.errorsList.push('Invalid username or password')
         this.loading = false
         return
       }

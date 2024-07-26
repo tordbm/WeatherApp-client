@@ -102,7 +102,7 @@ import { mapState, mapWritableState } from 'pinia'
 import { useFavoredCityStore } from '@/stores/favoredCityStore'
 import axios from 'axios'
 import { FAST_API_URL, getCookie } from '@/shared/utils'
-import { useAlertsStore } from '@/stores/alertsStore'
+import { useErrorStore } from '@/stores/errorStore'
 import { useUserStore } from '@/stores/userStore'
 
 export default defineComponent({
@@ -116,9 +116,9 @@ export default defineComponent({
     weatherData: { type: Object, required: true },
   },
   setup() {
-    const { alertsList } = useAlertsStore()
+    const { errorsList } = useErrorStore()
     return {
-      alertsList,
+      errorsList,
     }
   },
   data() {
@@ -156,7 +156,7 @@ export default defineComponent({
           city: response.data.city,
         })
       } catch (error: any) {
-        this.alertsList.push(error.message)
+        this.errorsList.push(error.message)
       }
     },
     handleAccordionClick(index: number) {

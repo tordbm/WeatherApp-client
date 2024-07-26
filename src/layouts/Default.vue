@@ -1,6 +1,6 @@
 <template>
   <Nav />
-  <ErrorToast v-if="alertsList.length > 0" />
+  <ErrorToast v-if="errorsList.length > 0" />
   <main class="container flex-shrink-0 mb-4 mt-4">
     <RouterView />
   </main>
@@ -14,7 +14,7 @@
 import Nav from '@/components/Nav.vue'
 import Footer from '@/components/Footer.vue'
 import ErrorToast from '@/ErrorToast.vue'
-import { useAlertsStore } from '@/stores/alertsStore'
+import { useErrorStore } from '@/stores/errorStore'
 import { me } from '@/shared/utils'
 
 export default {
@@ -24,9 +24,9 @@ export default {
     Footer,
   },
   setup() {
-    const { alertsList } = useAlertsStore()
+    const { errorsList } = useErrorStore()
     return {
-      alertsList,
+      errorsList,
     }
   },
   mounted() {

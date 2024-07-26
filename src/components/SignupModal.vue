@@ -68,7 +68,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useAlertsStore } from '@/stores/alertsStore'
+import { useErrorStore } from '@/stores/errorStore'
 import { FAST_API_URL, hashString } from '@/shared/utils'
 import axios from 'axios'
 import { Modal } from 'bootstrap'
@@ -79,9 +79,9 @@ export default defineComponent({
     ContentLoader,
   },
   setup() {
-    const { alertsList } = useAlertsStore()
+    const { errorsList } = useErrorStore()
     return {
-      alertsList,
+      errorsList,
     }
   },
   data() {
@@ -101,7 +101,7 @@ export default defineComponent({
   methods: {
     async signup() {
       if (!this.passwordsMatch) {
-        this.alertsList.push('Passwords do not match')
+        this.errorsList.push('Passwords do not match')
         return
       }
       const hashedPassword = await hashString(this.password)
@@ -114,7 +114,7 @@ export default defineComponent({
         this.loading = true
         await axios.post(`${FAST_API_URL}${'/create_user/'}`, data)
       } catch (_) {
-        this.alertsList.push('Username or email already exists')
+        this.errorsList.push('Username or email already exists')
         return
       } finally {
         this.loading = false

@@ -73,7 +73,7 @@ import TempChart from '@/components/TempChart.vue'
 import WindChart from '@/components/WindChart.vue'
 import ContentLoader from '@/shared/ContentLoader.vue'
 import { reverseGeocodingUrl, visualCrossingUrl } from '@/shared/utils'
-import { useAlertsStore } from '@/stores/alertsStore'
+import { useErrorStore } from '@/stores/errorStore'
 import FavoriteCityDropdown from '@/components/FavoriteCityDropdown.vue'
 import { useUserStore } from '@/stores/userStore'
 import { mapState } from 'pinia'
@@ -89,9 +89,9 @@ export default {
     WindChart,
   },
   setup() {
-    const { alertsList } = useAlertsStore()
+    const { errorsList } = useErrorStore()
     return {
-      alertsList,
+      errorsList,
     }
   },
   data() {
@@ -118,7 +118,7 @@ export default {
         this.getCityNameFromCoordinates(latitude, longitude)
       }
       const error = (err: any) => {
-        this.alertsList.push(err.message)
+        this.errorsList.push(err.message)
         this.loading = false
       }
       navigator.geolocation.getCurrentPosition(success, error, {
@@ -133,7 +133,7 @@ export default {
         this.city = data.address.city || data.address.town
         this.fetchData()
       } catch (error: any) {
-        this.alertsList.push(error.message)
+        this.errorsList.push(error.message)
         console.error(error)
       }
     },
@@ -150,7 +150,7 @@ export default {
         this.clickedAccordionIndex = 0
       } catch (error: any) {
         console.error(error)
-        this.alertsList.push(error.message)
+        this.errorsList.push(error.message)
       } finally {
         this.loading = false
       }
@@ -161,7 +161,7 @@ export default {
       } else {
         const msg = 'Invalid index:' + index
         console.error(msg)
-        this.alertsList.push(msg)
+        this.errorsList.push(msg)
       }
     },
     setCity(city: string) {

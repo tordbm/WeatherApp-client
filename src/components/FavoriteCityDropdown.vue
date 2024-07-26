@@ -41,7 +41,7 @@
 </template>
 <script lang="ts">
 import { FAST_API_URL, getCookie } from '@/shared/utils'
-import { useAlertsStore } from '@/stores/alertsStore'
+import { useErrorStore } from '@/stores/errorStore'
 import { useFavoredCityStore } from '@/stores/favoredCityStore'
 import axios from 'axios'
 import { mapWritableState } from 'pinia'
@@ -49,9 +49,9 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   setup() {
-    const { alertsList } = useAlertsStore()
+    const { errorsList } = useErrorStore()
     return {
-      alertsList,
+      errorsList,
     }
   },
   data() {
@@ -71,7 +71,7 @@ export default defineComponent({
       )
       this.favoredCities = favoredCities.data
     } catch (error: any) {
-      this.alertsList.push(error.message)
+      this.errorsList.push(error.message)
     }
   },
   methods: {
@@ -91,7 +91,7 @@ export default defineComponent({
           (item) => item.favored_id !== favored_id
         )
       } catch (error: any) {
-        this.alertsList.push(error.message)
+        this.errorsList.push(error.message)
       }
     },
   },
