@@ -7,7 +7,7 @@
       </h2>
       <template v-if="currentUser">
         <button
-          v-if="!clicked && !isFavoredCity"
+          v-if="!isFavoredCity"
           type="button"
           class="btn btn-lg mb-2"
           @click="favoredCity">
@@ -26,7 +26,7 @@
             .7-1 1.1c-4.5 4.5-10.6 7-16.9 7s-12.4-2.5-16.9-7z" />
           </svg>
         </button>
-        <button v-else type="button" class="btn btn-lg mb-2">
+        <button v-else-if="isFavoredCity" type="button" class="btn btn-lg mb-2">
           <svg
             fill="#F25ac9"
             height="20"
@@ -124,7 +124,6 @@ export default defineComponent({
   data() {
     return {
       today: true,
-      clicked: false,
     }
   },
   computed: {
@@ -152,7 +151,6 @@ export default defineComponent({
           },
           { headers: { Authorization: `Bearer ${getCookie('accesstoken')}` } }
         )
-        this.clicked = !this.clicked
         this.favoredCities.push({
           favored_id: response.data.favored_id,
           city: response.data.city,
