@@ -17,43 +17,47 @@
         </div>
         <div class="modal-body">
           <form @submit.prevent="signup">
-            <div class="mb-3">
-              <label for="username" class="form-label">Username</label>
+            <div class="mb-4 form-floating">
               <input
                 type="username"
                 class="form-control"
                 id="username"
                 v-model="username"
+                placeholder="Username"
                 required />
+              <label for="username" class="form-label">Username</label>
             </div>
-            <div class="mb-3">
-              <label for="email" class="form-label">Email address</label>
+            <div class="mb-4 form-floating">
               <input
                 type="email"
                 class="form-control"
                 id="email"
                 v-model="email"
+                placeholder="Email address"
                 required />
+              <label for="email" class="form-label">Email address</label>
             </div>
-            <div class="mb-3">
-              <label for="password" class="form-label">Password</label>
+            <div class="mb-4 form-floating">
               <input
                 type="password"
                 class="form-control"
                 id="password"
                 v-model="password"
+                placeholder="Password"
                 required />
+              <label for="password" class="form-label">Password</label>
             </div>
-            <div class="mb-3">
-              <label for="controlPassword" class="form-label"
-                >Repeat password</label
-              >
+            <div class="mb-4 form-floating">
               <input
                 type="password"
                 class="form-control"
                 id="controlPassword"
                 v-model="controlPassword"
+                placeholder="Repeat password"
                 required />
+              <label for="controlPassword" class="form-label"
+                >Repeat password</label
+              >
             </div>
             <div class="modal-footer">
               <button type="submit" class="btn btn-success">

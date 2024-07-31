@@ -19,8 +19,7 @@
 
         <form @submit.prevent="login">
           <div class="modal-body">
-            <div class="mb-3">
-              <label for="usernameInput" class="form-label">Username</label>
+            <div class="mb-4 form-floating">
               <input
                 v-model="username"
                 type="username"
@@ -28,17 +27,20 @@
                 id="usernameInput"
                 aria-describedby="usernamelHelp"
                 :disabled="loading"
+                placeholder="Username"
                 required />
+              <label for="usernameInput" class="form-label">Username</label>
             </div>
-            <div class="mb-3">
-              <label for="inputPassword" class="form-label">Password</label>
+            <div class="mb-3 form-floating">
               <input
                 v-model="password"
                 type="password"
                 class="form-control"
                 id="inputPassword"
                 :disabled="loading"
+                placeholder="Password"
                 required />
+              <label for="inputPassword" class="form-label">Password</label>
             </div>
 
             <button
