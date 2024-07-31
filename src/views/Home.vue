@@ -43,19 +43,59 @@
     </div>
 
     <ContentLoader :loading="loading">
-      <div v-if="weatherData && !loading" class="col-md-6 mb-4">
-        <div class="p-5">
+      <div v-if="weatherData && !loading" class="col-md-6">
+        <nav class="nav justify-content-center mt-custom-4-3">
+          <div v-if="showChart === 'temp'">
+            <input type="radio" class="btn-check" id="temp" checked />
+            <label class="btn" for="temp">Temperature</label>
+          </div>
+          <div v-else>
+            <input
+              type="radio"
+              class="btn-check"
+              id="temp"
+              @click.prevent="showChart = 'temp'" />
+            <label class="btn" for="temp">Temperature</label>
+          </div>
+
+          <div v-if="showChart === 'precip'">
+            <input type="radio" class="btn-check" id="precip" checked />
+            <label class="btn" for="precip">Precipitaion</label>
+          </div>
+          <div v-else>
+            <input
+              type="radio"
+              class="btn-check"
+              id="precip"
+              @click.prevent="showChart = 'precip'" />
+            <label class="btn" for="precip">Precipitaion</label>
+          </div>
+
+          <div v-if="showChart === 'wind'">
+            <input type="radio" class="btn-check" id="temp" checked />
+            <label class="btn" for="wind">Wind</label>
+          </div>
+          <div v-else>
+            <input
+              type="radio"
+              class="btn-check"
+              id="wind"
+              @click.prevent="showChart = 'wind'" />
+            <label class="btn" for="wind">Wind</label>
+          </div>
+        </nav>
+        <div v-if="showChart === 'temp'" class="p-5">
           <TempChart
             :weather-data="weatherData"
             :index="clickedAccordionIndex" />
         </div>
 
-        <div class="p-5">
+        <div v-if="showChart === 'precip'" class="p-5">
           <PrecipChart
             :weather-data="weatherData"
             :index="clickedAccordionIndex" />
         </div>
-        <div class="p-5">
+        <div v-if="showChart === 'wind'" class="p-5">
           <WindChart
             :weather-data="weatherData"
             :index="clickedAccordionIndex" />
@@ -101,6 +141,7 @@ export default {
       city: localStorage.city as string | null,
       lastFetchedCity: localStorage.city as string,
       clickedAccordionIndex: 0 as number,
+      showChart: 'temp' as string,
     }
   },
   computed: {
@@ -171,3 +212,10 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+@media (min-width: 768px) {
+  .mt-custom-4-3 {
+    margin-top: 4.3rem;
+  }
+}
+</style>
