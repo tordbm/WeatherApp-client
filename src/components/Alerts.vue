@@ -22,8 +22,8 @@ export default defineComponent({
   props: {
     weatherData: { type: Object, required: true },
   },
-  methods: {
-    formatDateTime,
+  setup() {
+    return { formatDateTime }
   },
 })
 </script>

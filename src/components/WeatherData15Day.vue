@@ -64,6 +64,13 @@ export default defineComponent({
   props: {
     weatherData: { type: Object, required: true },
   },
+  setup() {
+    return {
+      parseConditions,
+      parseConditionsToText,
+      showPrecip,
+    }
+  },
   mounted() {
     this.initTooltip()
   },
@@ -77,14 +84,9 @@ export default defineComponent({
       this.$emit('accordion-click', index)
     },
     initTooltip: initTooltips('tooltip'),
-    formatDate,
-    parseConditions,
-    parseConditionsToText,
-    showPrecip,
   },
 })
 </script>
-
 <style lang="scss">
 .accordion {
   .accordion-item {

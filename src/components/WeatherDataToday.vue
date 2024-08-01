@@ -30,6 +30,14 @@ export default defineComponent({
   props: {
     weatherData: { type: Object, required: true },
   },
+  setup() {
+    return {
+      filterNextHours,
+      parseConditions,
+      parseConditionsToText,
+      showPrecip,
+    }
+  },
   data() {
     return {
       todayData: this.weatherData.days[0] as any,
@@ -40,10 +48,6 @@ export default defineComponent({
   },
   methods: {
     initTooltip: initTooltips('tooltip'),
-    filterNextHours,
-    parseConditions,
-    parseConditionsToText,
-    showPrecip,
-  },
+  }
 })
 </script>
