@@ -60,7 +60,7 @@
 
           <div v-if="showChart === 'precip'">
             <input type="radio" class="btn-check" id="precip" checked />
-            <label class="btn" for="precip">Precipitaion</label>
+            <label class="btn" for="precip">Precipitation</label>
           </div>
           <div v-else>
             <input
@@ -68,7 +68,7 @@
               class="btn-check"
               id="precip"
               @click.prevent="showChart = 'precip'" />
-            <label class="btn" for="precip">Precipitaion</label>
+            <label class="btn" for="precip">Precipitation</label>
           </div>
 
           <div v-if="showChart === 'wind'">
