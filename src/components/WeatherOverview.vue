@@ -43,42 +43,16 @@
     </div>
     <div class="col-md-auto">
       <nav class="nav justify-content-end">
-        <div v-if="today">
-          <!-- prettier-ignore-attribute @click.prevent -->
+        <div v-for="option in options" :key="option.id">
           <input
             type="radio"
             class="btn-check"
-            id="Today"
-            @click.prevent="today = true; handleAccordionClick(0)"
-            checked />
-          <label class="btn" for="Today">Today</label>
-        </div>
-        <div v-else>
-          <!-- prettier-ignore-attribute @click.prevent -->
-          <input
-            type="radio"
-            class="btn-check"
-            id="Today"
-            @click.prevent="today = true; handleAccordionClick(0)" />
-          <label class="btn" for="Today">Today</label>
-        </div>
-
-        <div v-if="!today">
-          <input
-            type="radio"
-            class="btn-check"
-            id="15Day"
-            @click.prevent="today = false"
-            checked />
-          <label class="btn" for="15Day">15 Day</label>
-        </div>
-        <div v-else>
-          <input
-            type="radio"
-            class="btn-check"
-            id="15Day"
-            @click.prevent="today = false" />
-          <label class="btn" for="15Day">15 Day</label>
+            :id="option.id"
+            v-model="today"
+            :value="option.value"
+            @click="option.action"
+          />
+          <label class="btn" :for="option.id">{{ option.label }}</label>
         </div>
       </nav>
     </div>
@@ -124,6 +98,20 @@ export default defineComponent({
   data() {
     return {
       today: true,
+      options: [
+        {
+          id: 'Today',
+          label: 'Today',
+          value: true,
+          action: () => this.handleAccordionClick(0)
+        },
+        {
+          id: '15Day',
+          label: '15 Day',
+          value: false,
+          action: () => {}
+        }
+      ]
     }
   },
   computed: {

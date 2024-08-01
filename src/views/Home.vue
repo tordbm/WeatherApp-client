@@ -45,43 +45,15 @@
     <ContentLoader :loading="loading">
       <div v-if="weatherData && !loading" class="col-md-6">
         <nav class="nav justify-content-center mt-custom-4-3">
-          <div v-if="showChart === 'temp'">
-            <input type="radio" class="btn-check" id="temp" checked />
-            <label class="btn" for="temp">Temperature</label>
-          </div>
-          <div v-else>
+          <div v-for="chart in charts" :key="chart.id">
             <input
               type="radio"
               class="btn-check"
-              id="temp"
-              @click.prevent="showChart = 'temp'" />
-            <label class="btn" for="temp">Temperature</label>
-          </div>
-
-          <div v-if="showChart === 'precip'">
-            <input type="radio" class="btn-check" id="precip" checked />
-            <label class="btn" for="precip">Precipitation</label>
-          </div>
-          <div v-else>
-            <input
-              type="radio"
-              class="btn-check"
-              id="precip"
-              @click.prevent="showChart = 'precip'" />
-            <label class="btn" for="precip">Precipitation</label>
-          </div>
-
-          <div v-if="showChart === 'wind'">
-            <input type="radio" class="btn-check" id="temp" checked />
-            <label class="btn" for="wind">Wind</label>
-          </div>
-          <div v-else>
-            <input
-              type="radio"
-              class="btn-check"
-              id="wind"
-              @click.prevent="showChart = 'wind'" />
-            <label class="btn" for="wind">Wind</label>
+              :id="chart.id"
+              :checked="showChart === chart.id"
+              @click="showChart = chart.id"
+            />
+            <label class="btn" :for="chart.id">{{ chart.label }}</label>
           </div>
         </nav>
         <div v-if="showChart === 'temp'" class="p-5">
@@ -142,6 +114,11 @@ export default {
       lastFetchedCity: localStorage.city as string,
       clickedAccordionIndex: 0 as number,
       showChart: 'temp' as string,
+      charts: [
+      { id: 'temp', label: 'Temperature' },
+      { id: 'precip', label: 'Precipitation' },
+      { id: 'wind', label: 'Wind' }
+      ],
     }
   },
   computed: {
