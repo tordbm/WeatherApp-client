@@ -79,6 +79,20 @@ export function filterNextHours(todayData: any, weatherData: any): Array<any> {
   return todayData.hours.filter((hour: any) => hour.datetime >= currentTime)
 }
 
+export function processHours<T>(index: number, todayData: any, weatherData: any, callback: (hour: any) => T): Array<T> {
+  let result: T[] = []
+  if (index > 0) {
+    todayData.hours.forEach((hour: any) => {
+      result.push(callback(hour))
+    })
+    return result
+  }
+  filterNextHours(todayData, weatherData).forEach((hour: any) => {
+    result.push(callback(hour))
+  })
+  return result
+}
+
 export function initTooltips(ref: string) {
   return function (this: any) {
     const tooltips: HTMLElement[] | undefined = this.$refs[ref] as

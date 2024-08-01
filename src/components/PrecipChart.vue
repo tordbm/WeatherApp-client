@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { filterNextHours } from '@/shared/utils'
+import { processHours } from '@/shared/utils'
 import { Bar } from 'vue-chartjs'
 
 export default defineComponent({
@@ -54,34 +54,11 @@ export default defineComponent({
       return this.weatherData.days[this.index]
     },
     labels(): Array<string> {
-      let nextHours: string[] = []
-      if (this.index > 0) {
-        this.todayData.hours.forEach((hour: any) => {
-          nextHours.push(hour.datetime.slice(0, 5))
-        })
-        return nextHours
-      }
-      this.filterNextHours(this.todayData, this.weatherData).forEach((hour) => {
-        nextHours.push(hour.datetime.slice(0, 5))
-      })
-      return nextHours
+      return processHours(this.index, this.todayData, this.weatherData, (hour: any) => hour.datetime.slice(0, 5))
     },
     precipData(): Array<number> {
-      let nextPrecip: number[] = []
-      if (this.index > 0) {
-        this.todayData.hours.forEach((hour: any) => {
-          nextPrecip.push(parseFloat(hour.precip.toFixed(1)))
-        })
-        return nextPrecip
-      }
-      this.filterNextHours(this.todayData, this.weatherData).forEach((hour) => {
-        nextPrecip.push(parseFloat(hour.precip.toFixed(1)))
-      })
-      return nextPrecip
+      return processHours(this.index, this.todayData, this.weatherData, (hour: any) => hour.precip.toFixed(1))
     },
-  },
-  methods: {
-    filterNextHours,
   },
 })
 </script>
