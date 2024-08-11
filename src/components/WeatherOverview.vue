@@ -50,8 +50,7 @@
             :id="option.id"
             v-model="today"
             :value="option.value"
-            @click="option.action"
-          />
+            @click="option.action" />
           <label class="btn" :for="option.id">{{ option.label }}</label>
         </div>
       </nav>
@@ -103,15 +102,15 @@ export default defineComponent({
           id: 'Today',
           label: 'Today',
           value: true,
-          action: () => this.handleAccordionClick(0)
+          action: () => this.handleAccordionClick(0),
         },
         {
           id: '15Day',
           label: '15 Day',
           value: false,
-          action: () => {}
-        }
-      ]
+          action: () => {},
+        },
+      ],
     }
   },
   computed: {

@@ -65,13 +65,28 @@ export default defineComponent({
       return this.weatherData.days[this.index]
     },
     labels(): Array<string> {
-      return processHours(this.index, this.todayData, this.weatherData, (hour: any) => hour.datetime.slice(0, 5))
+      return processHours(
+        this.index,
+        this.todayData,
+        this.weatherData,
+        (hour: any) => hour.datetime.slice(0, 5)
+      )
     },
     windSpeedData(): Array<number> {
-      return processHours(this.index, this.todayData, this.weatherData, (hour: any) => Math.round(hour.windspeed / 3.6))
+      return processHours(
+        this.index,
+        this.todayData,
+        this.weatherData,
+        (hour: any) => Math.round(hour.windspeed / 3.6)
+      )
     },
     windGustsData(): Array<number> {
-      return processHours(this.index, this.todayData, this.weatherData, (hour: any) => Math.round(hour.windgust / 3.6))
+      return processHours(
+        this.index,
+        this.todayData,
+        this.weatherData,
+        (hour: any) => Math.round(hour.windgust / 3.6)
+      )
     },
   },
 })

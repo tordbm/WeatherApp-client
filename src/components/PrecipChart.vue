@@ -54,10 +54,20 @@ export default defineComponent({
       return this.weatherData.days[this.index]
     },
     labels(): Array<string> {
-      return processHours(this.index, this.todayData, this.weatherData, (hour: any) => hour.datetime.slice(0, 5))
+      return processHours(
+        this.index,
+        this.todayData,
+        this.weatherData,
+        (hour: any) => hour.datetime.slice(0, 5)
+      )
     },
     precipData(): Array<number> {
-      return processHours(this.index, this.todayData, this.weatherData, (hour: any) => hour.precip.toFixed(1))
+      return processHours(
+        this.index,
+        this.todayData,
+        this.weatherData,
+        (hour: any) => hour.precip.toFixed(1)
+      )
     },
   },
 })

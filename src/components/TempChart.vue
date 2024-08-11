@@ -56,10 +56,20 @@ export default defineComponent({
       return this.weatherData.days[this.index]
     },
     labels(): Array<string> {
-      return processHours(this.index, this.todayData, this.weatherData, (hour: any) => hour.datetime.slice(0, 5))
+      return processHours(
+        this.index,
+        this.todayData,
+        this.weatherData,
+        (hour: any) => hour.datetime.slice(0, 5)
+      )
     },
     tempData(): Array<number> {
-      return processHours(this.index, this.todayData, this.weatherData, (hour: any) => Math.round(hour.temp))
+      return processHours(
+        this.index,
+        this.todayData,
+        this.weatherData,
+        (hour: any) => Math.round(hour.temp)
+      )
     },
   },
 })

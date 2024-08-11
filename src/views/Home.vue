@@ -51,8 +51,7 @@
               class="btn-check"
               :id="chart.id"
               :checked="showChart === chart.id"
-              @click="showChart = chart.id"
-            />
+              @click="showChart = chart.id" />
             <label class="btn" :for="chart.id">{{ chart.label }}</label>
           </div>
         </nav>
@@ -115,9 +114,9 @@ export default {
       clickedAccordionIndex: 0 as number,
       showChart: 'temp' as string,
       charts: [
-      { id: 'temp', label: 'Temperature' },
-      { id: 'precip', label: 'Precipitation' },
-      { id: 'wind', label: 'Wind' }
+        { id: 'temp', label: 'Temperature' },
+        { id: 'precip', label: 'Precipitation' },
+        { id: 'wind', label: 'Wind' },
       ],
     }
   },

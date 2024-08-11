@@ -48,6 +48,6 @@ export default defineComponent({
   },
   methods: {
     initTooltip: initTooltips('tooltip'),
-  }
+  },
 })
 </script>

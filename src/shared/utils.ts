@@ -79,7 +79,12 @@ export function filterNextHours(todayData: any, weatherData: any): Array<any> {
   return todayData.hours.filter((hour: any) => hour.datetime >= currentTime)
 }
 
-export function processHours<T>(index: number, todayData: any, weatherData: any, callback: (hour: any) => T): Array<T> {
+export function processHours<T>(
+  index: number,
+  todayData: any,
+  weatherData: any,
+  callback: (hour: any) => T
+): Array<T> {
   let result: T[] = []
   if (index > 0) {
     todayData.hours.forEach((hour: any) => {
