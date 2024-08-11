@@ -63,7 +63,6 @@ export default defineComponent({
           y: {
             beginAtZero: true,
             max: 12,
-            grace: '5%',
             grid: {
               display: true,
             },
