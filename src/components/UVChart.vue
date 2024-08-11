@@ -35,9 +35,9 @@ export default defineComponent({
                 chartArea.left,
                 chartArea.top
               )
-              gradient.addColorStop(0, 'green')
-              gradient.addColorStop(0.33, 'yellow')
-              gradient.addColorStop(1, 'violet')
+              gradient.addColorStop(0.2, 'green')
+              gradient.addColorStop(0.4, 'yellow')
+              gradient.addColorStop(0.8, 'violet')
 
               return gradient
             },
@@ -62,8 +62,8 @@ export default defineComponent({
           },
           y: {
             beginAtZero: true,
-            max: 13,
-            grace: '100%',
+            max: 12,
+            grace: '5%',
             grid: {
               display: true,
             },
