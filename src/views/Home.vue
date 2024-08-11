@@ -66,6 +66,9 @@
             :weather-data="weatherData"
             :index="clickedAccordionIndex" />
         </div>
+        <div v-if="showChart === 'uv'" class="p-5">
+          <UVChart :weather-data="weatherData" :index="clickedAccordionIndex" />
+        </div>
         <div v-if="showChart === 'wind'" class="p-5">
           <WindChart
             :weather-data="weatherData"
@@ -88,6 +91,7 @@ import { useErrorStore } from '@/stores/errorStore'
 import FavoriteCityDropdown from '@/components/FavoriteCityDropdown.vue'
 import { useUserStore } from '@/stores/userStore'
 import { mapState } from 'pinia'
+import UVChart from '@/components/UVChart.vue'
 
 export default {
   components: {
@@ -98,6 +102,7 @@ export default {
     PrecipChart,
     TempChart,
     WindChart,
+    UVChart,
   },
   setup() {
     const { errorsList } = useErrorStore()
@@ -116,6 +121,7 @@ export default {
       charts: [
         { id: 'temp', label: 'Temperature' },
         { id: 'precip', label: 'Precipitation' },
+        { id: 'uv', label: 'UV Index' },
         { id: 'wind', label: 'Wind' },
       ],
     }
