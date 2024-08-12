@@ -13,9 +13,14 @@ const gradientOptions: GradientOptions = {
   startInterval: 0.33,
   middleInterval: 0.8,
   endInterval: 0.9,
-  startColor: 'DeepSkyBlue',
+  startColor: 'LightSkyBlue',
   middleColor: 'yellow',
   endColor: 'violet',
+}
+
+const gustGradientOptions: GradientOptions = {
+  ...gradientOptions,
+  startColor: 'gray',
 }
 
 export default defineComponent({
@@ -62,7 +67,7 @@ export default defineComponent({
               if (!chartArea) {
                 return
               }
-              return createGradient(ctx, chartArea, gradientOptions)
+              return createGradient(ctx, chartArea, gustGradientOptions)
             },
             borderColor: (context: any) => {
               const chart = context.chart
@@ -70,7 +75,7 @@ export default defineComponent({
               if (!chartArea) {
                 return
               }
-              return createGradient(ctx, chartArea, gradientOptions)
+              return createGradient(ctx, chartArea, gustGradientOptions)
             },
             tension: 0.4,
             pointRadius: 0,
