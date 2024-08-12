@@ -4,6 +4,7 @@ import AdvancedFormat from 'dayjs/plugin/advancedFormat'
 import { Tooltip } from 'bootstrap'
 import axios from 'axios'
 import { useUserStore } from '@/stores/userStore'
+import type { GradientOptions } from './types'
 
 dayjs.extend(utc)
 dayjs.extend(AdvancedFormat)
@@ -182,4 +183,22 @@ export async function hashString(str: string | null): Promise<string> {
   const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join('')
 
   return hashHex
+}
+
+export function createGradient(
+  ctx: CanvasRenderingContext2D,
+  chartArea: any,
+  options: GradientOptions
+): CanvasGradient {
+  const gradient = ctx.createLinearGradient(
+    chartArea.left,
+    chartArea.bottom,
+    chartArea.left,
+    chartArea.top
+  )
+  gradient.addColorStop(options.startInterval, options.startColor)
+  gradient.addColorStop(options.middleInterval, options.middleColor)
+  gradient.addColorStop(options.endInterval, options.endColor)
+
+  return gradient
 }

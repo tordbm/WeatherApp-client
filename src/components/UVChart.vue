@@ -4,8 +4,18 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { processHours } from '@/shared/utils'
+import { createGradient, processHours } from '@/shared/utils'
 import { Line } from 'vue-chartjs'
+import type { GradientOptions } from '@/shared/types'
+
+const gradientOptions: GradientOptions = {
+  startInterval: 0.2,
+  middleInterval: 0.4,
+  endInterval: 0.8,
+  startColor: 'green',
+  middleColor: 'yellow',
+  endColor: 'violet',
+}
 
 export default defineComponent({
   components: {
@@ -23,23 +33,21 @@ export default defineComponent({
           {
             label: 'UV-Index',
             data: this.uvData,
+            backgroundColor: (context: any) => {
+              const chart = context.chart
+              const { ctx, chartArea } = chart
+              if (!chartArea) {
+                return
+              }
+              return createGradient(ctx, chartArea, gradientOptions)
+            },
             borderColor: (context: any) => {
               const chart = context.chart
               const { ctx, chartArea } = chart
               if (!chartArea) {
                 return
               }
-              const gradient = ctx.createLinearGradient(
-                chartArea.left,
-                chartArea.bottom,
-                chartArea.left,
-                chartArea.top
-              )
-              gradient.addColorStop(0.2, 'green')
-              gradient.addColorStop(0.4, 'yellow')
-              gradient.addColorStop(0.8, 'violet')
-
-              return gradient
+              return createGradient(ctx, chartArea, gradientOptions)
             },
             tension: 0.4,
             pointRadius: 0,
@@ -53,6 +61,10 @@ export default defineComponent({
           legend: {
             display: false,
           },
+          title: {
+            display: true,
+            text: 'UV-Index',
+          },
         },
         scales: {
           x: {
@@ -62,7 +74,7 @@ export default defineComponent({
           },
           y: {
             beginAtZero: true,
-            max: 12,
+            suggestedMax: 12,
             grid: {
               display: true,
             },

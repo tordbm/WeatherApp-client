@@ -6,6 +6,17 @@
 import { defineComponent } from 'vue'
 import { processHours } from '@/shared/utils'
 import { Line } from 'vue-chartjs'
+import { createGradient } from '@/shared/utils'
+import type { GradientOptions } from '@/shared/types'
+
+const gradientOptions: GradientOptions = {
+  startInterval: 0.33,
+  middleInterval: 0.8,
+  endInterval: 0.9,
+  startColor: 'DeepSkyBlue',
+  middleColor: 'yellow',
+  endColor: 'violet',
+}
 
 export default defineComponent({
   components: {
@@ -23,16 +34,44 @@ export default defineComponent({
           {
             label: 'Windspeed in m/s',
             data: this.windSpeedData,
-            backgroundColor: 'DeepPink',
-            borderColor: 'DeepPink',
+            backgroundColor: (context: any) => {
+              const chart = context.chart
+              const { ctx, chartArea } = chart
+              if (!chartArea) {
+                return
+              }
+              return createGradient(ctx, chartArea, gradientOptions)
+            },
+            borderColor: (context: any) => {
+              const chart = context.chart
+              const { ctx, chartArea } = chart
+              if (!chartArea) {
+                return
+              }
+              return createGradient(ctx, chartArea, gradientOptions)
+            },
             tension: 0.4,
             pointRadius: 0,
           },
           {
             label: 'Windgusts in m/s',
             data: this.windGustsData,
-            backgroundColor: 'gray',
-            borderColor: 'gray',
+            backgroundColor: (context: any) => {
+              const chart = context.chart
+              const { ctx, chartArea } = chart
+              if (!chartArea) {
+                return
+              }
+              return createGradient(ctx, chartArea, gradientOptions)
+            },
+            borderColor: (context: any) => {
+              const chart = context.chart
+              const { ctx, chartArea } = chart
+              if (!chartArea) {
+                return
+              }
+              return createGradient(ctx, chartArea, gradientOptions)
+            },
             tension: 0.4,
             pointRadius: 0,
           },
@@ -41,6 +80,15 @@ export default defineComponent({
     },
     chartOptions() {
       return {
+        plugins: {
+          legend: {
+            display: false,
+          },
+          title: {
+            display: true,
+            text: 'Wind in m/s',
+          },
+        },
         scales: {
           x: {
             grid: {
@@ -48,8 +96,8 @@ export default defineComponent({
             },
           },
           y: {
+            suggestedMax: 20,
             beginAtZero: true,
-            grace: '100%',
             grid: {
               display: true,
             },

@@ -31,6 +31,15 @@ export default defineComponent({
     },
     chartOptions() {
       return {
+        plugins: {
+          legend: {
+            display: false,
+          },
+          title: {
+            display: true,
+            text: 'Precipitation in mm',
+          },
+        },
         responsive: true,
         interaction: {
           intersect: false,

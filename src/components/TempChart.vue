@@ -33,6 +33,15 @@ export default defineComponent({
     },
     chartOptions() {
       return {
+        plugins: {
+          legend: {
+            display: false,
+          },
+          title: {
+            display: true,
+            text: 'Temperature in °C',
+          },
+        },
         scales: {
           x: {
             grid: {
