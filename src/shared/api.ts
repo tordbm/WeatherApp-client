@@ -8,6 +8,14 @@ axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 const user = useUserStore()
 
+export function visualCrossingUrl(city: string) {
+    return `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=metric&key=${import.meta.env.VITE_VC_API_KEY}&contentType=json`
+}
+
+export function reverseGeocodingUrl(latitude: number, longitude: number) {
+  return `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&addressdetails=1`
+}
+
 export async function login(username: string, password: string) {
     const hashedPassword = await hashString(password)
     const data = qs.stringify({

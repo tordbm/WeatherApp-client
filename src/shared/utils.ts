@@ -7,13 +7,6 @@ import type { GradientOptions } from './types'
 dayjs.extend(utc)
 dayjs.extend(AdvancedFormat)
 // prettier-ignore
-export function visualCrossingUrl(city: string) {
-  return `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=metric&key=${import.meta.env.VITE_VC_API_KEY}&contentType=json`
-}
-
-export function reverseGeocodingUrl(latitude: number, longitude: number) {
-  return `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&addressdetails=1`
-}
 
 export const wordToEmoji: { [key: string]: string } = {
   snow: '\u2744', // ❄️
