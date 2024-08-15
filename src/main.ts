@@ -6,7 +6,6 @@ import {
   Chart as ChartJS,
   Title,
   Tooltip,
-  Legend,
   LineElement,
   LinearScale,
   CategoryScale,
@@ -23,8 +22,7 @@ ChartJS.register(
   PointElement,
   LineElement,
   Title,
-  Tooltip,
-  Legend
+  Tooltip
 )
 const pinia = createPinia()
 const app = createApp(App).use(router).use(pinia)
