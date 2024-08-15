@@ -66,8 +66,6 @@ export async function getMyFavoredCities() {
     return favoredCities.data
 }
 
-
-
 export async function signup(username: string, email: string, password: string) {
     const hashedPassword = await hashString(password)
     const data = {
