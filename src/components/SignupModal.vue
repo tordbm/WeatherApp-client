@@ -73,10 +73,9 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useErrorStore } from '@/stores/errorStore'
-import { FAST_API_URL, hashString } from '@/shared/utils'
-import axios from 'axios'
 import { Modal } from 'bootstrap'
 import ContentLoader from '@/shared/ContentLoader.vue'
+import { signup } from '@/shared/api'
 
 export default defineComponent({
   components: {
@@ -108,15 +107,9 @@ export default defineComponent({
         this.errorsList.push('Passwords do not match')
         return
       }
-      const hashedPassword = await hashString(this.password)
-      const data = {
-        username: this.username,
-        email: this.email,
-        password: hashedPassword,
-      }
       try {
         this.loading = true
-        await axios.post(`${FAST_API_URL}${'/create_user/'}`, data)
+        await signup(this.username, this.email, this.password)
       } catch (_) {
         this.errorsList.push('Username or email already exists')
         return

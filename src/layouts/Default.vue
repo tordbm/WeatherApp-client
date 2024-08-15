@@ -15,7 +15,7 @@ import Nav from '@/components/Nav.vue'
 import Footer from '@/components/Footer.vue'
 import ErrorToast from '@/ErrorToast.vue'
 import { useErrorStore } from '@/stores/errorStore'
-import { me } from '@/shared/utils'
+import { me } from '@/shared/api'
 
 export default {
   components: {

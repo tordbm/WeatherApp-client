@@ -40,10 +40,9 @@
   </div>
 </template>
 <script lang="ts">
-import { FAST_API_URL, getCookie } from '@/shared/utils'
+import { deleteFavoredCity, getMyFavoredCities } from '@/shared/api'
 import { useErrorStore } from '@/stores/errorStore'
 import { useFavoredCityStore } from '@/stores/favoredCityStore'
-import axios from 'axios'
 import { mapWritableState } from 'pinia'
 import { defineComponent } from 'vue'
 
@@ -64,12 +63,8 @@ export default defineComponent({
   },
   async mounted() {
     try {
-      const access_token = getCookie('accesstoken')
-      const favoredCities = await axios.get(
-        `${FAST_API_URL}${'/users/me/cities/'}`,
-        { headers: { Authorization: `Bearer ${access_token}` } }
-      )
-      this.favoredCities = favoredCities.data
+      const favoredCities = await getMyFavoredCities()
+      this.favoredCities = favoredCities
     } catch (error: any) {
       this.errorsList.push(error.message)
     }
@@ -81,12 +76,7 @@ export default defineComponent({
     },
     removeFavoredCity(favored_id: string) {
       try {
-        axios.delete(
-          `${FAST_API_URL}/delete_favored_city/?favored_id=${favored_id}`,
-          {
-            headers: { Authorization: `Bearer ${getCookie('accesstoken')}` },
-          }
-        )
+        deleteFavoredCity(favored_id)
         this.favoredCities = this.favoredCities.filter(
           (item) => item.favored_id !== favored_id
         )

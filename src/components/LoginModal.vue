@@ -17,7 +17,7 @@
             aria-label="Close"></button>
         </div>
 
-        <form @submit.prevent="login">
+        <form @submit.prevent="loginUser">
           <div class="modal-body">
             <div class="mb-4 form-floating">
               <input
@@ -64,15 +64,13 @@
   <SignupModal id="signupModal" @signed-up="setCredentials" />
 </template>
 <script lang="ts">
-import { FAST_API_URL, setCookie, me, hashString } from '@/shared/utils'
 import { useUserStore } from '@/stores/userStore'
-import axios from 'axios'
-import qs from 'qs'
 import { defineComponent } from 'vue'
 import { useErrorStore } from '@/stores/errorStore'
 import { Modal } from 'bootstrap'
 import ContentLoader from '@/shared/ContentLoader.vue'
 import SignupModal from './SignupModal.vue'
+import { login, me } from '@/shared/api'
 
 export default defineComponent({
   components: {
@@ -95,33 +93,16 @@ export default defineComponent({
     }
   },
   methods: {
-    async login() {
-      const hashedPassword = await hashString(this.password)
-      const data = qs.stringify({
-        grant_type: '',
-        username: this.username,
-        password: hashedPassword,
-        scope: '',
-        client_id: '',
-        client_secret: '',
-      })
+    async loginUser() {
       try {
         this.loading = true
-        const tokenResponse: any = await axios.post(
-          `${FAST_API_URL}${'/token'}`,
-          data,
-          {
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-            },
-          }
-        )
-
-        setCookie('accesstoken', tokenResponse.data.access_token, 1440)
+        await login(this.username!, this.password!)
       } catch (_) {
         this.errorsList.push('Invalid username or password')
         this.loading = false
         return
+      } finally {
+        this.loading = false
       }
       await me()
 
@@ -136,7 +117,7 @@ export default defineComponent({
       modalInstance.show()
       this.username = username
       this.password = password
-      this.login()
+      this.loginUser()
     },
   },
 })

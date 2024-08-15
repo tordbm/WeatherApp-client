@@ -73,10 +73,9 @@ import WeatherDataToday from './WeatherDataToday.vue'
 import Alerts from './Alerts.vue'
 import { mapState, mapWritableState } from 'pinia'
 import { useFavoredCityStore } from '@/stores/favoredCityStore'
-import axios from 'axios'
-import { FAST_API_URL, getCookie } from '@/shared/utils'
 import { useErrorStore } from '@/stores/errorStore'
 import { useUserStore } from '@/stores/userStore'
+import { addFavoredCity } from '@/shared/api'
 
 export default defineComponent({
   emits: ['accordion-click'],
@@ -108,7 +107,6 @@ export default defineComponent({
           id: '15Day',
           label: '15 Day',
           value: false,
-          action: () => {},
         },
       ],
     }
@@ -129,18 +127,10 @@ export default defineComponent({
         return
       }
       try {
-        const response = await axios.post(
-          `${FAST_API_URL}/add_favorite_city/`,
-          {
-            city:
-              this.weatherData.address.charAt(0).toUpperCase() +
-              this.weatherData.address.slice(1),
-          },
-          { headers: { Authorization: `Bearer ${getCookie('accesstoken')}` } }
-        )
+        const response = await addFavoredCity(this.weatherData.address)
         this.favoredCities.push({
-          favored_id: response.data.favored_id,
-          city: response.data.city,
+          favored_id: response.favored_id,
+          city: response.city,
         })
       } catch (error: any) {
         this.errorsList.push(error.message)
