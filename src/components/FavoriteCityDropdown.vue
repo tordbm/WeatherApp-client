@@ -41,14 +41,13 @@
 </template>
 <script lang="ts">
 import { deleteFavoredCity, getMyFavoredCities } from '@/shared/api'
-import { useErrorStore } from '@/stores/errorStore'
-import { useFavoredCityStore } from '@/stores/favoredCityStore'
+import { useMainStore } from '@/stores/mainStore'
 import { mapWritableState } from 'pinia'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
   setup() {
-    const { errorsList } = useErrorStore()
+    const { errorsList } = useMainStore()
     return {
       errorsList,
     }
@@ -59,7 +58,7 @@ export default defineComponent({
     }
   },
   computed: {
-    ...mapWritableState(useFavoredCityStore, ['favoredCities']),
+    ...mapWritableState(useMainStore, ['favoredCities']),
   },
   async mounted() {
     try {

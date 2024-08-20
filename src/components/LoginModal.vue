@@ -64,9 +64,8 @@
   <SignupModal id="signupModal" @signed-up="setCredentials" />
 </template>
 <script lang="ts">
-import { useUserStore } from '@/stores/userStore'
+import { useMainStore } from '@/stores/mainStore'
 import { defineComponent } from 'vue'
-import { useErrorStore } from '@/stores/errorStore'
 import { Modal } from 'bootstrap'
 import ContentLoader from '@/shared/ContentLoader.vue'
 import SignupModal from './SignupModal.vue'
@@ -78,8 +77,7 @@ export default defineComponent({
     SignupModal,
   },
   setup() {
-    const { errorsList } = useErrorStore()
-    const { currentUser } = useUserStore()
+    const { errorsList, currentUser } = useMainStore()
     return {
       errorsList,
       currentUser,

@@ -14,7 +14,7 @@
 import Nav from '@/components/Nav.vue'
 import Footer from '@/components/Footer.vue'
 import ErrorToast from '@/ErrorToast.vue'
-import { useErrorStore } from '@/stores/errorStore'
+import { useMainStore } from '@/stores/mainStore'
 import { me } from '@/shared/api'
 
 export default {
@@ -24,7 +24,7 @@ export default {
     Footer,
   },
   setup() {
-    const { errorsList } = useErrorStore()
+    const { errorsList } = useMainStore()
     return {
       errorsList,
     }

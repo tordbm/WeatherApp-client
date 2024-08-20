@@ -1,6 +1,6 @@
 <template>
   <div class="toast-container position-absolute top-0 end-0 p-3">
-    <div v-for="alert in errors.errorsList">
+    <div v-for="alert in errorsList">
       <div
         ref="bsToast"
         class="toast show mt-2"
@@ -24,10 +24,10 @@
 <script lang="ts" setup>
 import { onMounted, ref, onUnmounted } from 'vue'
 import { Toast } from 'bootstrap'
-import { useErrorStore } from './stores/errorStore'
+import { useMainStore } from './stores/mainStore'
 
 const bsToast = ref()
-const errors = useErrorStore()
+const { errorsList } = useMainStore()
 
 let toast
 

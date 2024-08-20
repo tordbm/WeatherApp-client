@@ -39,15 +39,15 @@
             </router-link>
           </li>
           <ContentLoader
-            :loading="!user.currentUser && existsCookie('accesstoken')">
-            <li v-if="user.currentUser">
+            :loading="!store.currentUser && existsCookie('accesstoken')">
+            <li v-if="store.currentUser">
               <div class="nav-item dropdown">
                 <button
                   class="btn btn-no-outline nav-link dropdown-toggle"
                   type="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false">
-                  {{ user.currentUser.username }}
+                  {{ store.currentUser.username }}
                 </button>
                 <ul class="dropdown-menu">
                   <li>
@@ -80,18 +80,18 @@
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { routes } from '@/router/router'
-import { useUserStore } from '@/stores/userStore'
+import { useMainStore } from '@/stores/mainStore'
 import LoginModal from '@/components/LoginModal.vue'
 import { deleteCookie, existsCookie } from '@/shared/utils'
 import ContentLoader from '@/shared/ContentLoader.vue'
 
 const router = useRouter()
-const user = useUserStore()
+const store = useMainStore()
 const activeRoute = computed(() => router.currentRoute.value.path)
 const isActive = (path: string) => path === activeRoute.value
 
 function logout() {
   deleteCookie('accesstoken')
-  user.currentUser = null
+  store.currentUser = null
 }
 </script>

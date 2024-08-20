@@ -72,7 +72,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useErrorStore } from '@/stores/errorStore'
+import { useMainStore } from '@/stores/mainStore'
 import { Modal } from 'bootstrap'
 import ContentLoader from '@/shared/ContentLoader.vue'
 import { signup } from '@/shared/api'
@@ -82,7 +82,7 @@ export default defineComponent({
     ContentLoader,
   },
   setup() {
-    const { errorsList } = useErrorStore()
+    const { errorsList } = useMainStore()
     return {
       errorsList,
     }

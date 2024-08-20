@@ -72,9 +72,7 @@ import WeatherData15Day from './WeatherData15Day.vue'
 import WeatherDataToday from './WeatherDataToday.vue'
 import Alerts from './Alerts.vue'
 import { mapState, mapWritableState } from 'pinia'
-import { useFavoredCityStore } from '@/stores/favoredCityStore'
-import { useErrorStore } from '@/stores/errorStore'
-import { useUserStore } from '@/stores/userStore'
+import { useMainStore } from '@/stores/mainStore'
 import { addFavoredCity } from '@/shared/api'
 
 export default defineComponent({
@@ -88,7 +86,7 @@ export default defineComponent({
     weatherData: { type: Object, required: true },
   },
   setup() {
-    const { errorsList } = useErrorStore()
+    const { errorsList } = useMainStore()
     return {
       errorsList,
     }
@@ -112,8 +110,8 @@ export default defineComponent({
     }
   },
   computed: {
-    ...mapWritableState(useFavoredCityStore, ['favoredCities']),
-    ...mapState(useUserStore, ['currentUser']),
+    ...mapWritableState(useMainStore, ['favoredCities']),
+    ...mapState(useMainStore, ['currentUser']),
     isFavoredCity(): boolean {
       return this.favoredCities.some(
         (item) =>

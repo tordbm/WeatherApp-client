@@ -1,12 +1,12 @@
 import axios from 'axios'
-import { useUserStore } from '@/stores/userStore'
+import { useMainStore } from '@/stores/mainStore'
 import { getCookie, hashString, setCookie } from './utils'
 import qs from 'qs'
 
 axios.defaults.baseURL = 'https://evil-caty-monclair-3848f875.koyeb.app'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
-const user = useUserStore()
+const store = useMainStore()
 
 //prettier-ignore
 export function visualCrossingUrl(city: string) {
@@ -46,7 +46,7 @@ export async function me() {
       Authorization: `Bearer ${accesstoken}`,
     },
   })
-  user.currentUser = {
+  store.currentUser = {
     id: userInfoResponse.data.id,
     username: userInfoResponse.data.username,
     email: userInfoResponse.data.email,

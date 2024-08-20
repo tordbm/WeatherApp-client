@@ -1,5 +1,4 @@
 import type { UUID } from 'crypto'
-import { options } from 'node_modules/axios/index.cjs'
 
 export interface User {
   id: UUID

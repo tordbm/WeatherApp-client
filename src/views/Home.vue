@@ -87,9 +87,8 @@ import TempChart from '@/components/TempChart.vue'
 import WindChart from '@/components/WindChart.vue'
 import ContentLoader from '@/shared/ContentLoader.vue'
 import { reverseGeocodingUrl, visualCrossingUrl } from '@/shared/api'
-import { useErrorStore } from '@/stores/errorStore'
+import { useMainStore } from '@/stores/mainStore'
 import FavoriteCityDropdown from '@/components/FavoriteCityDropdown.vue'
-import { useUserStore } from '@/stores/userStore'
 import { mapState } from 'pinia'
 import UVChart from '@/components/UVChart.vue'
 
@@ -105,7 +104,7 @@ export default {
     UVChart,
   },
   setup() {
-    const { errorsList } = useErrorStore()
+    const { errorsList } = useMainStore()
     return {
       errorsList,
     }
@@ -127,7 +126,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(useUserStore, ['currentUser']),
+    ...mapState(useMainStore, ['currentUser']),
   },
   mounted() {
     this.fetchData()
