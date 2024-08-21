@@ -31,15 +31,14 @@
             </svg>
           </button>
           <FavoriteCityDropdown
-            v-if="currentUser"
+            v-if="store.currentUser"
             class="mt-1"
             @selected-city="setCity" />
         </div>
       </div>
       <WeatherOverview
         v-if="weatherData && !loading"
-        :weather-data="weatherData"
-        @accordion-click="handleAccordionClick" />
+        :weather-data="weatherData" />
     </div>
 
     <ContentLoader :loading="loading">
@@ -56,23 +55,17 @@
           </div>
         </nav>
         <div v-if="showChart === 'temp'" class="p-5">
-          <TempChart
-            :weather-data="weatherData"
-            :index="clickedAccordionIndex" />
+          <TempChart :weather-data="weatherData" />
         </div>
 
         <div v-if="showChart === 'precip'" class="p-5">
-          <PrecipChart
-            :weather-data="weatherData"
-            :index="clickedAccordionIndex" />
+          <PrecipChart :weather-data="weatherData" />
         </div>
         <div v-if="showChart === 'uv'" class="p-5">
-          <UVChart :weather-data="weatherData" :index="clickedAccordionIndex" />
+          <UVChart :weather-data="weatherData" />
         </div>
         <div v-if="showChart === 'wind'" class="p-5">
-          <WindChart
-            :weather-data="weatherData"
-            :index="clickedAccordionIndex" />
+          <WindChart :weather-data="weatherData" />
         </div>
       </div>
     </ContentLoader>
@@ -104,9 +97,9 @@ export default {
     UVChart,
   },
   setup() {
-    const { errorsList } = useMainStore()
+    const store = useMainStore()
     return {
-      errorsList,
+      store,
     }
   },
   data() {
@@ -115,7 +108,6 @@ export default {
       loading: false as boolean,
       city: localStorage.city as string | null,
       lastFetchedCity: localStorage.city as string,
-      clickedAccordionIndex: 0 as number,
       showChart: 'temp' as string,
       charts: [
         { id: 'temp', label: 'Temperature' },
@@ -124,9 +116,6 @@ export default {
         { id: 'wind', label: 'Wind' },
       ],
     }
-  },
-  computed: {
-    ...mapState(useMainStore, ['currentUser']),
   },
   mounted() {
     this.fetchData()
@@ -140,7 +129,7 @@ export default {
         this.getCityNameFromCoordinates(latitude, longitude)
       }
       const error = (err: any) => {
-        this.errorsList.push(err.message)
+        this.store.addError(err.message)
         this.loading = false
       }
       navigator.geolocation.getCurrentPosition(success, error, {
@@ -155,7 +144,7 @@ export default {
         this.city = data.address.city || data.address.town
         this.fetchData()
       } catch (error: any) {
-        this.errorsList.push(error.message)
+        this.store.addError(error.message)
         console.error(error)
       }
     },
@@ -169,21 +158,12 @@ export default {
         const response = await fetch(visualCrossingUrl(this.city))
         const data = await response.json()
         this.weatherData = data
-        this.clickedAccordionIndex = 0
+        this.store.setClickedDayIndex(0)
       } catch (error: any) {
         console.error(error)
-        this.errorsList.push(error.message)
+        this.store.addError(error.message)
       } finally {
         this.loading = false
-      }
-    },
-    handleAccordionClick(index: number) {
-      if (typeof index === 'number') {
-        this.clickedAccordionIndex = index
-      } else {
-        const msg = 'Invalid index:' + index
-        console.error(msg)
-        this.errorsList.push(msg)
       }
     },
     setCity(city: string) {

@@ -61,10 +61,7 @@
     {{ weatherData.resolvedAddress }}
   </h5>
   <WeatherDataToday v-if="today" :weather-data="weatherData" />
-  <WeatherData15Day
-    v-else
-    :weather-data="weatherData"
-    @accordion-click="handleAccordionClick" />
+  <WeatherData15Day v-else :weather-data="weatherData" />
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
@@ -76,7 +73,6 @@ import { useMainStore } from '@/stores/mainStore'
 import { addFavoredCity } from '@/shared/api'
 
 export default defineComponent({
-  emits: ['accordion-click'],
   components: {
     WeatherData15Day,
     WeatherDataToday,
@@ -86,9 +82,12 @@ export default defineComponent({
     weatherData: { type: Object, required: true },
   },
   setup() {
-    const { errorsList } = useMainStore()
+    const store = useMainStore()
+    const setClickedDayIndex = (index: number) =>
+      store.setClickedDayIndex(index)
     return {
-      errorsList,
+      store,
+      setClickedDayIndex,
     }
   },
   data() {
@@ -98,8 +97,8 @@ export default defineComponent({
         {
           id: 'Today',
           label: 'Today',
+          action: () => this.setClickedDayIndex(0),
           value: true,
-          action: () => this.handleAccordionClick(0),
         },
         {
           id: '15Day',
@@ -131,11 +130,8 @@ export default defineComponent({
           city: response.city,
         })
       } catch (error: any) {
-        this.errorsList.push(error.message)
+        this.store.addError(error.message)
       }
-    },
-    handleAccordionClick(index: number) {
-      this.$emit('accordion-click', index)
     },
   },
 })

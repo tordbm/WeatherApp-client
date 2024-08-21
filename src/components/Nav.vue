@@ -7,7 +7,7 @@
         :to="routes[0].path"
         class="navbar-brand d-flex align-items-center">
         <img
-          src="@/icons/partially-sunny.png"
+          src="@/images/partially-sunny.png"
           alt="Sun behind cloud"
           height="50" />
         World Wide Weather

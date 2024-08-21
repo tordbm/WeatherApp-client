@@ -8,6 +8,7 @@ import { processHours } from '@/shared/utils'
 import { Line } from 'vue-chartjs'
 import { createGradient } from '@/shared/utils'
 import type { GradientOptions } from '@/shared/types'
+import { useMainStore } from '@/stores/mainStore'
 
 const gradientOptions: GradientOptions = {
   startInterval: 0.33,
@@ -27,9 +28,14 @@ export default defineComponent({
   components: {
     Line,
   },
+  setup() {
+    const store = useMainStore()
+    return {
+      store,
+    }
+  },
   props: {
     weatherData: { type: Object, required: true },
-    index: { type: Number, default: 0 },
   },
   computed: {
     chartData() {
@@ -115,11 +121,11 @@ export default defineComponent({
       }
     },
     todayData(): any {
-      return this.weatherData.days[this.index]
+      return this.weatherData.days[this.store.clickedDayIndex]
     },
     labels(): Array<string> {
       return processHours(
-        this.index,
+        this.store.clickedDayIndex,
         this.todayData,
         this.weatherData,
         (hour: any) => hour.datetime.slice(0, 5)
@@ -127,7 +133,7 @@ export default defineComponent({
     },
     windSpeedData(): Array<number> {
       return processHours(
-        this.index,
+        this.store.clickedDayIndex,
         this.todayData,
         this.weatherData,
         (hour: any) => Math.round(hour.windspeed / 3.6)
@@ -135,7 +141,7 @@ export default defineComponent({
     },
     windGustsData(): Array<number> {
       return processHours(
-        this.index,
+        this.store.clickedDayIndex,
         this.todayData,
         this.weatherData,
         (hour: any) => Math.round(hour.windgust / 3.6)

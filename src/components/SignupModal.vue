@@ -82,9 +82,9 @@ export default defineComponent({
     ContentLoader,
   },
   setup() {
-    const { errorsList } = useMainStore()
+    const store = useMainStore()
     return {
-      errorsList,
+      store,
     }
   },
   data() {
@@ -104,14 +104,14 @@ export default defineComponent({
   methods: {
     async signup() {
       if (!this.passwordsMatch) {
-        this.errorsList.push('Passwords do not match')
+        this.store.addError('Passwords do not match')
         return
       }
       try {
         this.loading = true
         await signup(this.username, this.email, this.password)
-      } catch (_) {
-        this.errorsList.push('Username or email already exists')
+      } catch {
+        this.store.addError('Username or email already exists')
         return
       } finally {
         this.loading = false

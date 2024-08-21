@@ -77,10 +77,9 @@ export default defineComponent({
     SignupModal,
   },
   setup() {
-    const { errorsList, currentUser } = useMainStore()
+    const store = useMainStore()
     return {
-      errorsList,
-      currentUser,
+      store,
     }
   },
   data() {
@@ -96,7 +95,7 @@ export default defineComponent({
         this.loading = true
         await login(this.username!, this.password!)
       } catch (_) {
-        this.errorsList.push('Invalid username or password')
+        this.store.addError('Invalid username or password')
         this.loading = false
         return
       } finally {

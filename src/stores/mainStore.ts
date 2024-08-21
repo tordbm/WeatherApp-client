@@ -7,6 +7,15 @@ export const useMainStore = defineStore('store', {
       errorsList: [] as any[],
       favoredCities: [] as any[],
       currentUser: null as User | null,
+      clickedDayIndex: 0 as number,
     }
+  },
+  actions: {
+    setClickedDayIndex(index: number) {
+      this.clickedDayIndex = index
+    },
+    addError(error: string) {
+      this.errorsList.push(error)
+    },
   },
 })

@@ -6,6 +6,7 @@
 import { defineComponent } from 'vue'
 import { processHours } from '@/shared/utils'
 import { Line } from 'vue-chartjs'
+import { useMainStore } from '@/stores/mainStore'
 
 export default defineComponent({
   components: {
@@ -14,6 +15,12 @@ export default defineComponent({
   props: {
     weatherData: { type: Object, required: true },
     index: { type: Number, default: 0 },
+  },
+  setup() {
+    const store = useMainStore()
+    return {
+      store,
+    }
   },
   computed: {
     chartData() {
@@ -62,11 +69,11 @@ export default defineComponent({
       }
     },
     todayData(): any {
-      return this.weatherData.days[this.index]
+      return this.weatherData.days[this.store.clickedDayIndex]
     },
     labels(): Array<string> {
       return processHours(
-        this.index,
+        this.store.clickedDayIndex,
         this.todayData,
         this.weatherData,
         (hour: any) => hour.datetime.slice(0, 5)
@@ -74,7 +81,7 @@ export default defineComponent({
     },
     tempData(): Array<number> {
       return processHours(
-        this.index,
+        this.store.clickedDayIndex,
         this.todayData,
         this.weatherData,
         (hour: any) => Math.round(hour.temp)

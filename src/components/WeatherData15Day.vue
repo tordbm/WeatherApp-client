@@ -58,17 +58,19 @@ import {
   showPrecip,
   formatDateShort,
 } from '@/shared/utils'
+import { useMainStore } from '@/stores/mainStore'
 
 export default defineComponent({
-  emits: ['accordion-click'],
   props: {
     weatherData: { type: Object, required: true },
   },
   setup() {
+    const store = useMainStore()
     return {
       parseConditions,
       parseConditionsToText,
       showPrecip,
+      store,
     }
   },
   mounted() {
@@ -81,7 +83,7 @@ export default defineComponent({
         : formatDateShort(day.datetime)
     },
     toggleAccordion(index: number) {
-      this.$emit('accordion-click', index)
+      this.store.setClickedDayIndex(index)
     },
     initTooltip: initTooltips('tooltip'),
   },

@@ -1,6 +1,6 @@
 <template>
   <div class="toast-container position-absolute top-0 end-0 p-3">
-    <div v-for="alert in errorsList">
+    <div v-for="error in errorsList">
       <div
         ref="bsToast"
         class="toast show mt-2"
@@ -15,7 +15,7 @@
             data-bs-dismiss="toast"
             aria-label="Close"></button>
         </div>
-        <div class="toast-body box">{{ alert }}</div>
+        <div class="toast-body box">{{ error }}</div>
       </div>
     </div>
   </div>

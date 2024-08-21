@@ -1,5 +1,5 @@
 <template>
-  <div v-if="favoredCities.length > 0" class="dropdown">
+  <div v-if="store.favoredCities.length > 0" class="dropdown">
     <button
       class="btn dropdown-toggle"
       type="button"
@@ -20,7 +20,7 @@
     </button>
     <ul class="dropdown-menu">
       <li
-        v-for="item in favoredCities"
+        v-for="item in store.favoredCities"
         :key="item.favored_id"
         class="d-flex align-items-center">
         <a
@@ -47,9 +47,9 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   setup() {
-    const { errorsList } = useMainStore()
+    const store = useMainStore()
     return {
-      errorsList,
+      store,
     }
   },
   data() {
@@ -57,15 +57,12 @@ export default defineComponent({
       selectedCity: '',
     }
   },
-  computed: {
-    ...mapWritableState(useMainStore, ['favoredCities']),
-  },
   async mounted() {
     try {
       const favoredCities = await getMyFavoredCities()
-      this.favoredCities = favoredCities
+      this.store.favoredCities = favoredCities
     } catch (error: any) {
-      this.errorsList.push(error.message)
+      this.store.addError(error.message)
     }
   },
   methods: {
@@ -76,11 +73,11 @@ export default defineComponent({
     removeFavoredCity(favored_id: string) {
       try {
         deleteFavoredCity(favored_id)
-        this.favoredCities = this.favoredCities.filter(
+        this.store.favoredCities = this.store.favoredCities.filter(
           (item) => item.favored_id !== favored_id
         )
       } catch (error: any) {
-        this.errorsList.push(error.message)
+        this.store.addError(error.message)
       }
     },
   },
