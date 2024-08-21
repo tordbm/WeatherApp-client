@@ -10,27 +10,17 @@
   </footer>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import Nav from '@/components/Nav.vue'
 import Footer from '@/components/Footer.vue'
 import ErrorToast from '@/ErrorToast.vue'
 import { useMainStore } from '@/stores/mainStore'
 import { me } from '@/shared/api'
+import { onMounted } from 'vue'
 
-export default {
-  components: {
-    ErrorToast,
-    Nav,
-    Footer,
-  },
-  setup() {
-    const { errorsList } = useMainStore()
-    return {
-      errorsList,
-    }
-  },
-  mounted() {
-    me()
-  },
-}
+const { errorsList } = useMainStore()
+
+onMounted(() => {
+  me()
+})
 </script>
