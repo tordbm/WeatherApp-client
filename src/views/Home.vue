@@ -82,7 +82,6 @@ import ContentLoader from '@/shared/ContentLoader.vue'
 import { reverseGeocodingUrl, visualCrossingUrl } from '@/shared/api'
 import { useMainStore } from '@/stores/mainStore'
 import FavoriteCityDropdown from '@/components/FavoriteCityDropdown.vue'
-import { mapState } from 'pinia'
 import UVChart from '@/components/UVChart.vue'
 
 export default {

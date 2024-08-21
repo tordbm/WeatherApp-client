@@ -5,7 +5,7 @@
       <h2>
         {{ weatherData.address }}
       </h2>
-      <template v-if="currentUser">
+      <template v-if="store.currentUser">
         <button
           v-if="!isFavoredCity"
           type="button"
@@ -68,7 +68,6 @@ import { defineComponent } from 'vue'
 import WeatherData15Day from './WeatherData15Day.vue'
 import WeatherDataToday from './WeatherDataToday.vue'
 import Alerts from './Alerts.vue'
-import { mapState, mapWritableState } from 'pinia'
 import { useMainStore } from '@/stores/mainStore'
 import { addFavoredCity } from '@/shared/api'
 
@@ -109,10 +108,8 @@ export default defineComponent({
     }
   },
   computed: {
-    ...mapWritableState(useMainStore, ['favoredCities']),
-    ...mapState(useMainStore, ['currentUser']),
     isFavoredCity(): boolean {
-      return this.favoredCities.some(
+      return this.store.favoredCities.some(
         (item) =>
           item.city.toLowerCase() === this.weatherData.address.toLowerCase()
       )
@@ -125,7 +122,7 @@ export default defineComponent({
       }
       try {
         const response = await addFavoredCity(this.weatherData.address)
-        this.favoredCities.push({
+        this.store.favoredCities.push({
           favored_id: response.favored_id,
           city: response.city,
         })

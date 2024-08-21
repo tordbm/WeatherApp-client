@@ -42,7 +42,6 @@
 <script lang="ts">
 import { deleteFavoredCity, getMyFavoredCities } from '@/shared/api'
 import { useMainStore } from '@/stores/mainStore'
-import { mapWritableState } from 'pinia'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
