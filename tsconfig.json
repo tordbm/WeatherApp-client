@@ -1,7 +1,10 @@
 {
   "extends": "@vue/tsconfig/tsconfig.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "vite.config.ts"],
   "compilerOptions": {
+    "composite": true,
+    "types": ["node", "bootstrap", "vite/client"],
+    "noEmit": false,
     "target": "esnext",
     "ignoreDeprecations": "5.0",
     "baseUrl": ".",
@@ -9,9 +12,4 @@
       "@/*": ["./src/*"]
     }
   },
-  "references": [
-    {
-      "path": "./tsconfig.config.json"
-    }
-  ]
 }
