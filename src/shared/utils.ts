@@ -6,7 +6,6 @@ import type { GradientOptions } from './types'
 
 dayjs.extend(utc)
 dayjs.extend(AdvancedFormat)
-// prettier-ignore
 
 export const wordToEmoji: { [key: string]: string } = {
   snow: '\u2744', // ❄️
