@@ -1,7 +1,11 @@
 <template>
   <div
     class="navbar navbar-expand-lg border-bottom mb-4"
-    style="background-color: azure">
+    :style="
+      store.theme === 'light'
+        ? 'background-color: azure'
+        : 'background-color: indigo'
+    ">
     <nav class="container">
       <router-link
         :to="routes[0].path"
@@ -25,6 +29,14 @@
 
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ms-auto">
+          <button
+            class="btn btn-no-outline nav-link text-uppercase"
+            @click="setTheme(theme === 'light' ? 'dark' : 'light')">
+            <i
+              :class="
+                theme === 'light' ? 'bi bi-moon-stars-fill' : 'bi bi-sun-fill'
+              "></i>
+          </button>
           <li
             class="nav-item text-uppercase"
             v-for="route in routes"
@@ -38,38 +50,40 @@
               {{ route.path !== `/` ? route.children[0].name : '' }}
             </router-link>
           </li>
-          <ContentLoader
-            :loading="!store.currentUser && existsCookie('accesstoken')">
-            <li v-if="store.currentUser">
-              <div class="nav-item dropdown">
+          <li class="nav-item">
+            <ContentLoader
+              :loading="!store.currentUser && existsCookie('accesstoken')">
+              <li v-if="store.currentUser">
+                <div class="nav-item dropdown">
+                  <button
+                    class="btn btn-no-outline nav-link dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    {{ store.currentUser.username }}
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item text-danger" @click="logout"
+                        >Sign out</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li v-else class="nav-item">
                 <button
-                  class="btn btn-no-outline nav-link dropdown-toggle"
+                  class="btn btn-no-outline nav-link text-uppercase"
                   type="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  {{ store.currentUser.username }}
+                  data-bs-toggle="modal"
+                  data-bs-target="#loginModal"
+                  aria-expanded="true">
+                  Sign in
                 </button>
-                <ul class="dropdown-menu">
-                  <li>
-                    <a class="dropdown-item text-danger" @click="logout"
-                      >Sign out</a
-                    >
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li v-else class="nav-item">
-              <button
-                class="btn btn-no-outline nav-link text-uppercase"
-                type="button"
-                data-bs-toggle="modal"
-                data-bs-target="#loginModal"
-                aria-expanded="true">
-                Sign in
-              </button>
-            </li>
-          </ContentLoader>
-          <LoginModal />
+              </li>
+            </ContentLoader>
+            <LoginModal />
+          </li>
         </ul>
       </div>
     </nav>
@@ -77,7 +91,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { routes } from '@/router/router'
 import { useMainStore } from '@/stores/mainStore'
@@ -88,10 +102,20 @@ import ContentLoader from '@/shared/ContentLoader.vue'
 const router = useRouter()
 const store = useMainStore()
 const activeRoute = computed(() => router.currentRoute.value.path)
+const theme = computed(() => store.theme)
 const isActive = (path: string) => path === activeRoute.value
 
 function logout() {
   deleteCookie('accesstoken')
   store.currentUser = null
 }
+
+function setTheme(theme: string) {
+  document.documentElement.setAttribute('data-bs-theme', theme)
+  store.setTheme(theme)
+}
+
+onMounted(() => {
+  setTheme(localStorage.theme || 'light')
+})
 </script>

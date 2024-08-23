@@ -8,6 +8,7 @@ export const useMainStore = defineStore('store', {
       favoredCities: [] as any[],
       currentUser: null as User | null,
       clickedDayIndex: 0 as number,
+      theme: 'light' as string,
     }
   },
   actions: {
@@ -16,6 +17,10 @@ export const useMainStore = defineStore('store', {
     },
     addError(error: string) {
       this.errorsList.push(error)
+    },
+    setTheme(theme: string) {
+      this.theme = theme
+      localStorage.setItem('theme', theme)
     },
   },
 })
