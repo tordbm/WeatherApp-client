@@ -17,6 +17,14 @@
         World Wide Weather
       </router-link>
       <button
+        class="btn btn-no-outline nav-link text-uppercase"
+        @click="setTheme(theme === 'light' ? 'dark' : 'light')">
+        <i
+          :class="
+            theme === 'light' ? 'bi bi-moon-stars-fill' : 'bi bi-sun-fill'
+          "></i>
+      </button>
+      <button
         class="navbar-toggler border-0 shadow-none"
         type="button"
         data-bs-toggle="collapse"
@@ -29,14 +37,6 @@
 
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ms-auto">
-          <button
-            class="btn btn-no-outline nav-link text-uppercase"
-            @click="setTheme(theme === 'light' ? 'dark' : 'light')">
-            <i
-              :class="
-                theme === 'light' ? 'bi bi-moon-stars-fill' : 'bi bi-sun-fill'
-              "></i>
-          </button>
           <li
             class="nav-item text-uppercase"
             v-for="route in routes"
