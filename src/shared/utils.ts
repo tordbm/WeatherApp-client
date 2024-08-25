@@ -56,6 +56,9 @@ export function parseConditionsToText(icon: string) {
 }
 
 export function showPrecip(precip: number): string {
+  if (precip == null) {
+    return ''
+  }
   return parseFloat(precip.toFixed(1)) > 0 ? precip.toFixed(1) + ' mm' : ' '
 }
 
