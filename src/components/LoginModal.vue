@@ -99,15 +99,13 @@ export default defineComponent({
         this.store.addError('Invalid username or password')
         this.loading = false
         return
-      } finally {
-        this.loading = false
       }
       await me()
 
-      this.loading = false
       const modalElement = this.$refs.loginModal as HTMLElement
       const modalInstance = Modal.getInstance(modalElement)!
       modalInstance.hide()
+      this.loading = false
     },
     setCredentials(username: string, password: string) {
       const modalElement = this.$refs.loginModal as HTMLElement
