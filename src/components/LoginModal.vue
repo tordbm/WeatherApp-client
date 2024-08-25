@@ -47,7 +47,8 @@
               type="button"
               class="btn btn-link"
               data-bs-target="#signupModal"
-              data-bs-toggle="modal">
+              data-bs-toggle="modal"
+              :disabled="loading">
               Don't have an account? Sign up
             </button>
           </div>
@@ -94,7 +95,7 @@ export default defineComponent({
       try {
         this.loading = true
         await login(this.username!, this.password!)
-      } catch (_) {
+      } catch {
         this.store.addError('Invalid username or password')
         this.loading = false
         return
