@@ -16,7 +16,7 @@ The site is deployed using gh-pages here: https://tordbm.github.io/WeatherApp-cl
 - Vite
 - Github Actions for deployment to Github Pages
 
-## Origin of Wwather data
+## Data origin
 https://www.visualcrossing.com/
 
 ## Install
