@@ -12,7 +12,7 @@ The site is deployed using gh-pages here: https://tordbm.github.io/WeatherApp-cl
 - Bootstrap 5.3
 - Pinia
 - Chart.js
-- SASS
+- SCSS
 - Vite
 - Github Actions for deployment to Github Pages
 
