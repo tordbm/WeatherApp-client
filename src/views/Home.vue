@@ -154,6 +154,7 @@ export default {
       }
     },
     setCity(city: string) {
+      if (this.city?.toLowerCase() === city.toLowerCase()) return
       this.city = city
       this.fetchData()
     },

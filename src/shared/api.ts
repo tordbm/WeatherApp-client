@@ -27,7 +27,7 @@ export async function login(username: string, password: string) {
     client_id: '',
     client_secret: '',
   })
-  const tokenResponse: any = await axios.post('/token', data, {
+  const tokenResponse = await axios.post('/token', data, {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
@@ -41,7 +41,7 @@ export async function me() {
   if (!accesstoken) {
     return
   }
-  const userInfoResponse: any = await axios.get('/users/me/', {
+  const userInfoResponse = await axios.get('/users/me/', {
     headers: {
       Authorization: `Bearer ${accesstoken}`,
     },
